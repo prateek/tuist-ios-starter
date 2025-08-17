@@ -105,6 +105,33 @@ struct FeatureName {
 }
 ```
 
+### **Closure Capture Patterns**
+**CRITICAL**: Swift closures cannot capture `inout` parameters like TCA's `state` parameter.
+
+**Problem Pattern**:
+```swift
+case .someAction:
+    return .run { _ in
+        // ❌ ERROR: Cannot capture state directly
+        let value = state.someProperty
+    }
+```
+
+**Solution Pattern**:
+```swift
+case .someAction:
+    let capturedValue = state.someProperty  // ✅ Extract before closure
+    return .run { _ in
+        // Use capturedValue safely in closure
+        await someAsyncWork(with: capturedValue)
+    }
+```
+
+**Common Cases**:
+- AlertState message closures: Extract dynamic values before AlertState creation
+- .run effects: Extract state values before the closure
+- Async operations: Capture needed state values as local variables first
+
 ### **SwiftUI Views**
 ```swift
 struct FeatureView: View {
@@ -331,6 +358,11 @@ make tuist-clean             # Clean Tuist cache + regenerate
 make clean                   # Clean build artifacts
 tuist clean && tuist generate --no-open  # Full clean regeneration (automated)
 tuist clean && tuist generate            # Full clean regeneration (opens Xcode)
+
+# Tuist cache corruption (common issues)
+tuist cache clean            # Clear only the cache (keeps generated projects)
+rm -rf ~/Library/Caches/tuist  # Nuclear option: delete all Tuist cache
+rm -rf .tuist                # Remove local cache directory
 ```
 
 ### **Code Quality**
@@ -367,6 +399,34 @@ make clean                 # Clean build artifacts
 make tuist-clean          # Full Tuist regeneration
 make generate             # Regenerate Xcode project
 ```
+
+### **Tuist Cache Corruption**
+**Symptoms**: Strange build errors, missing dependencies, outdated generated files, "Module not found" errors after adding dependencies
+
+**Progressive Solutions** (try in order):
+```bash
+# Level 1: Clear cache only
+tuist cache clean                    # Clear build cache (safe)
+
+# Level 2: Full clean + regeneration  
+tuist clean && tuist generate        # Clean everything and regenerate
+
+# Level 3: Nuclear cache reset
+rm -rf ~/Library/Caches/tuist        # Delete global Tuist cache
+rm -rf .tuist                        # Delete local project cache
+tuist generate                       # Regenerate from scratch
+
+# Level 4: Complete reset (last resort)
+make tuist-clean                     # Uses our Makefile command
+rm -rf *.xcworkspace *.xcodeproj     # Remove generated files
+tuist generate                       # Full regeneration
+```
+
+**When to use each**:
+- **Level 1**: After dependency changes, before major builds
+- **Level 2**: Weird compilation errors, after Tuist updates  
+- **Level 3**: Persistent issues, corrupted cache symptoms
+- **Level 4**: Nothing else works, starting fresh
 
 ## 🚀 CI/CD & GitHub Actions
 
