@@ -40,9 +40,8 @@ jobs:
     
     env:
       HOMEBREW_NO_AUTO_UPDATE: 1
-      # Enable Tuist cloud features (optional - handled by optionalAuthentication in Tuist.swift)
+      # Disable Tuist cloud features - using local builds only
       CI: 1
-      TUIST_CONFIG_TOKEN: ${{ secrets.TUIST_CONFIG_TOKEN }}
     
     steps:
     - name: Checkout
