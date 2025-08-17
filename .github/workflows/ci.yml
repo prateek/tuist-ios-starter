@@ -43,6 +43,8 @@ jobs:
       # Enable Tuist cloud features with authentication
       CI: 1
       TUIST_CONFIG_TOKEN: ${{ secrets.TUIST_CONFIG_TOKEN }}
+      # Disable sandbox to allow Xcode developer tools access in CI
+      TUIST_CONFIG_DISABLE_SANDBOX: 1
     
     steps:
     - name: Checkout
