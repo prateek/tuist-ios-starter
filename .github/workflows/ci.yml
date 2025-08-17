@@ -40,11 +40,9 @@ jobs:
     
     env:
       HOMEBREW_NO_AUTO_UPDATE: 1
-      # Enable Tuist cloud features with authentication
+      # Enable Tuist cloud features (optional - handled by optionalAuthentication in Tuist.swift)
       CI: 1
       TUIST_CONFIG_TOKEN: ${{ secrets.TUIST_CONFIG_TOKEN }}
-      # Disable sandbox to allow Xcode developer tools access in CI
-      TUIST_CONFIG_DISABLE_SANDBOX: 1
     
     steps:
     - name: Checkout
@@ -76,7 +74,7 @@ jobs:
         # tuist build generates project implicitly and builds
         tuist build App
         # tuist test also generates implicitly if needed
-        tuist test App --result-bundle-path test-results.xcresult
+        tuist test --result-bundle-path test-results.xcresult
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
