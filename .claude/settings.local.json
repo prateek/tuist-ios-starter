@@ -58,7 +58,12 @@
       "Bash(make:*)",
       "Bash(find:*)",
       "Bash(touch:*)",
-      "mcp__zen__precommit"
+      "mcp__zen__precommit",
+      "Bash(./Scripts/setup-new-project.sh:*)",
+      "Bash(grep:*)",
+      "Bash(/dev/null)",
+      "Bash(source:*)",
+      "Bash(git checkout:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

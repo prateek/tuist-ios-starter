@@ -2,6 +2,60 @@
 
 The ultimate iOS starter template optimized for development with Claude Code and AI assistants. Built with **The Composable Architecture** and **Tuist** for modern, scalable iOS development.
 
+## 🎯 Get Started
+
+Create a new iOS project from this template in **under 2 minutes** with a clean, production-ready repository:
+
+### 📋 Prerequisites
+- **macOS Sonoma+** with **Xcode 15.0+**
+- **Basic knowledge** of Swift, SwiftUI, and iOS development
+
+### 🚀 Choose Your Setup Method
+
+#### **Option 1: GitHub Template** (Recommended)
+1. **Click ["Use this template"](https://github.com/prateek/tuist-ios-starter/generate)** on GitHub
+2. **Name your repository** and set visibility (public/private)
+3. **Clone and setup**:
+   ```bash
+   git clone https://github.com/yourusername/your-app-name.git
+   cd your-app-name
+   ./Scripts/setup.sh
+   ```
+
+#### **Option 2: GitHub CLI** (Developer-Friendly)
+```bash
+# Create private repository from template
+gh repo create my-app --template prateek/tuist-ios-starter --private
+cd my-app
+./Scripts/setup.sh
+
+# Or create public repository
+gh repo create my-app --template prateek/tuist-ios-starter --public
+cd my-app
+./Scripts/setup.sh
+```
+
+#### **Option 3: Direct Clone** (Simple)
+```bash
+git clone https://github.com/prateek/tuist-ios-starter.git YourAppName
+cd YourAppName
+./Scripts/setup.sh
+```
+
+### 🛠 What Happens During Setup
+1. **Detects template usage** and offers project customization
+2. **Interactive prompts** for your project name, bundle ID, and app display name
+3. **Automatically renames** all files and references to your project
+4. **Removes template-specific** documentation and examples (optional)
+5. **Generates clean project** ready for your development
+
+### ▶️ Run Your New Project
+```bash
+make generate    # Generate Xcode project
+make run        # Build and run in iPhone 16 simulator
+```
+Or open manually: `open YourProject.xcworkspace` and build with `⌘+R`
+
 ## ✨ Features
 
 - 🏗 **Modern Architecture**: The Composable Architecture (TCA) for predictable state management
@@ -12,30 +66,6 @@ The ultimate iOS starter template optimized for development with Claude Code and
 - 🎨 **Design System**: Consistent UI components and design tokens
 - ⚙️ **Developer Tools**: SwiftLint, SwiftFormat, CI/CD, and automation scripts
 - ♿ **Accessibility**: Built-in accessibility support following Apple HIG
-
-## 🚀 Quick Start
-
-### Option 1: Use as GitHub Template
-1. Click "Use this template" on GitHub
-2. Clone your new repository
-3. Run the setup script:
-   ```bash
-   ./Scripts/setup.sh
-   ```
-
-### Option 2: Clone Directly
-```bash
-git clone https://github.com/prateek/tuist-ios-starter.git YourAppName
-cd YourAppName
-./Scripts/setup.sh
-```
-
-### Generate and Run
-```bash
-make generate    # Generate Xcode project
-make run        # Build and run in iPhone 16 simulator
-```
-Or open manually: `open iOSClaudeCodeStarter.xcworkspace` and build with `⌘+R`
 
 ## 📋 What's Included
 
@@ -64,36 +94,38 @@ Or open manually: `open iOSClaudeCodeStarter.xcworkspace` and build with `⌘+R`
 - UI component testing
 - Async effect testing
 
-## 🤖 Claude Code Development
+## 🤖 AI-Optimized Development
 
-This template is specifically optimized for AI-assisted development:
+After setup, your project will be specifically optimized for AI-assisted development:
 
-### 📖 Read CLAUDE.md First
-The `CLAUDE.md` file contains essential guidelines for:
-- Project structure navigation
-- TCA architecture patterns
+### 📖 AI Development Guidelines
+Your project will include a customized `CLAUDE.md` file with:
+- Project-specific structure navigation
+- TCA architecture patterns for your codebase
 - Coding conventions and best practices
 - Module boundaries and dependencies
-- Testing patterns
+- Testing patterns and examples
 
 ### 🎯 AI-Friendly Features
 - **Clear Module Separation**: Easy for AI to understand boundaries
 - **Consistent Patterns**: Repetitive structures AI can follow
-- **Comprehensive Examples**: Real implementations to reference
+- **Comprehensive Examples**: Real implementations to reference (optional to keep)
 - **Detailed Documentation**: Context for better code generation
 
 ### 💡 Pro Tips for AI Development
-1. Always reference `CLAUDE.md` when asking for changes
+1. Always reference your project's `CLAUDE.md` when asking for changes
 2. Use existing features as templates for new ones
 3. Follow the established TCA patterns
 4. Test new features with the provided testing utilities
 
 ## 🛠 Development Commands
 
+After setup, your project will include these essential development commands:
+
 ### **Essential Commands**
 ```bash
-# Quick Start
-make setup              # Initial project setup
+# Quick Start (your project)
+make setup              # Install dependencies and generate project
 make generate          # Generate Xcode project
 make run               # Build and run app in iPhone 16 simulator
 
@@ -106,7 +138,7 @@ make format            # Format code with SwiftFormat
 
 ### **Building & Running**
 ```bash
-# Tuist Commands (Recommended - Now Working!)
+# Tuist Commands (Recommended)
 tuist build App        # Fast, cached building
 tuist run App          # Build and run in simulator
 make build             # Same as tuist build App
@@ -155,12 +187,49 @@ make reset-network     # Reset DNS/network cache
 # Build Issues  
 make clean            # Clean build artifacts
 make tuist-clean      # Full Tuist cache clean + regenerate
-tuist clean && tuist generate  # Manual clean workflow
+tuist clean && tuist generate --no-open  # Manual clean workflow (automated)
+tuist clean && tuist generate            # Manual clean workflow (opens Xcode)
 
 # Simulator Issues
 make reset-iphone     # Reset iPhone 16 simulator
 make clean-simulators # Reset all simulators (network fixes)
 ```
+
+## 🎯 Your Final Clean Project
+
+After running the setup transformation, your repository will be completely clean and focused on YOUR project:
+
+### ✅ What You Get
+- **Clean README** focused on your project (not the template)
+- **Renamed project files** (`YourProject.xcworkspace`, `YourProject.xcodeproj`)
+- **Updated bundle identifiers** (`com.yourcompany.yourproject.*`)
+- **Customized CLAUDE.md** with your project name throughout
+- **Project-specific documentation** in `docs/development-workflow.md`
+- **All build scripts updated** with your project names
+- **Optional example code removal** (interactive choice during setup)
+
+### ❌ What Gets Removed
+- Template usage instructions (this README)
+- Template-specific documentation
+- Template development TODOs and contribution guidelines
+- All references to "iOS Claude Code Starter"
+- Example code and features (if you choose to remove them)
+
+### 📁 Final Project Structure
+```
+YourProject/
+├── README.md                    # Your project's README
+├── CLAUDE.md                   # Your project's AI guidelines
+├── CONTRIBUTING.md             # Your project's contribution guide
+├── docs/
+│   └── development-workflow.md # Concise team development guide
+├── Tuist/Templates/            # Feature scaffolding (kept)
+├── Projects/                   # Your iOS app code
+├── YourProject.xcworkspace     # Your project workspace
+└── YourProject.xcodeproj       # Your project file
+```
+
+The final README will include only: *Built with [iOS Claude Code Starter](https://github.com/prateek/tuist-ios-starter)*
 
 ## 📚 Architecture Overview
 

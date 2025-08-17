@@ -1,5 +1,7 @@
-// ABOUTME: Tests for HomeFeature demonstrating TCA testing patterns
+// EXAMPLE_BEGIN: Home feature tests demonstration
+// ABOUTME: Tests for HomeFeature demonstrating TCA testing patterns  
 // ABOUTME: Shows how to test async effects, success/failure paths, and dependency injection
+// This is example code showing TCA testing patterns with TestStore and dependency injection
 
 import ComposableArchitecture
 import CoreKit
@@ -60,3 +62,4 @@ final class HomeFeatureTests: XCTestCase {
         }
     }
 }
+// EXAMPLE_END

@@ -1,5 +1,7 @@
+// EXAMPLE_BEGIN: Settings feature tests demonstration
 // ABOUTME: Tests for SettingsFeature demonstrating form handling and alert testing
 // ABOUTME: Shows how to test user interactions, binding actions, and presentation state
+// This is example code showing TCA form testing patterns with user interactions and alerts
 
 import ComposableArchitecture
 import DesignSystem
@@ -98,3 +100,4 @@ final class SettingsFeatureTests: XCTestCase {
         }
     }
 }
+// EXAMPLE_END

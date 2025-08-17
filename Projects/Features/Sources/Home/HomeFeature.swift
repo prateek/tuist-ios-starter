@@ -1,5 +1,7 @@
+// EXAMPLE_BEGIN: Home feature demonstration
 // ABOUTME: Home feature that displays a list of posts from an API
 // ABOUTME: Demonstrates TCA patterns including async effects, loading states, and error handling
+// This is example code showing TCA patterns with real API integration, loading states, and error handling
 
 import ComposableArchitecture
 import CoreKit
@@ -207,3 +209,4 @@ private struct PostRowView: View {
         )
     }
 }
+// EXAMPLE_END

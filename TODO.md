@@ -1,5 +1,10 @@
 # TODO
 
+- [ ] Pre-commit hooks (to ensure we trigger tests + lint + format + build + ...?)
+    - [ ] Update `CLAUDE.md` to ensure we specify each task should be commited after a review
+
+- [ ] Instructions for setup/install of suggested MCP servers (exa + zen + context7 + xcodebuilmcp) + sample JSON of mcp config
+
 ## Code Signing & Device Installation
 
 - [ ] **Add proper code signing configuration for device builds**

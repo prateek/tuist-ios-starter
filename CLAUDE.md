@@ -329,7 +329,8 @@ make reset-network           # Reset DNS/network cache
 # Project debugging
 make tuist-clean             # Clean Tuist cache + regenerate
 make clean                   # Clean build artifacts
-tuist clean && tuist generate  # Full clean regeneration
+tuist clean && tuist generate --no-open  # Full clean regeneration (automated)
+tuist clean && tuist generate            # Full clean regeneration (opens Xcode)
 ```
 
 ### **Code Quality**
@@ -380,7 +381,8 @@ The project includes modern CI/CD workflows in `.github/workflows/`:
 ```bash
 # CI builds use these exact commands
 tuist install              # Install dependencies
-tuist generate --no-open   # Generate project
+tuist generate --no-open   # Generate project (automated/CI)
+tuist generate             # Generate project (opens Xcode)
 tuist build App           # Build with caching
 xcodebuild test -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -destination 'platform=iOS Simulator,name=iPhone 16'
 ```

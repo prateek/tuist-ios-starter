@@ -1,5 +1,7 @@
+// EXAMPLE_BEGIN: Settings feature demonstration
 // ABOUTME: Settings feature demonstrating various input types and navigation patterns
 // ABOUTME: Shows form handling, alerts, and local state management using TCA
+// This is example code showing TCA form handling, alerts, and local state management patterns
 
 import ComposableArchitecture
 import DesignSystem
@@ -169,6 +171,7 @@ public struct SettingsView: View {
         )
     }
 }
+// EXAMPLE_END
 
 #Preview("Settings View - Custom State") {
     NavigationView {
@@ -185,3 +188,4 @@ public struct SettingsView: View {
         )
     }
 }
+// EXAMPLE_END

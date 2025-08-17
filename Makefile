@@ -54,7 +54,7 @@ install:
 
 generate:
 	@echo "🔨 Generating Xcode project..."
-	@tuist generate
+	@tuist generate --no-open
 
 clean:
 	@echo "🧹 Cleaning build artifacts..."
@@ -115,7 +115,7 @@ tuist-clean:
 	@echo "🧹 Cleaning Tuist cache and regenerating..."
 	@tuist clean
 	@tuist install
-	@tuist generate
+	@tuist generate --no-open
 
 # Network & Debugging targets
 debug-local: ## Build app with local data (no network requests)

@@ -8,7 +8,7 @@ If you want to see the app working immediately without any network issues:
 ```bash
 git clone https://github.com/prateek/tuist-ios-starter.git
 cd tuist-ios-starter
-tuist install && tuist generate
+tuist install && tuist generate --no-open  # Or just 'tuist generate' to open Xcode
 
 # Enable local demo mode in NetworkClient.swift temporarily:
 # Comment out the #endif line after loadLocalPosts() call
