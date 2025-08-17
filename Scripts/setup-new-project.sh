@@ -372,6 +372,30 @@ This project uses:
 - **The Composable Architecture (TCA)** for state management
 - **Tuist** for project generation and dependency management
 
+## ⚡ CI Performance Optimization (Recommended)
+
+To get **65-90% faster CI builds** through Tuist cloud caching:
+
+1. **Authenticate with Tuist**:
+   \`\`\`bash
+   tuist auth login
+   \`\`\`
+
+2. **Create your project**:
+   \`\`\`bash
+   tuist project create your-handle/$PROJECT_NAME
+   \`\`\`
+
+3. **Generate and add token to GitHub Secrets**:
+   \`\`\`bash
+   tuist project tokens create your-handle/$PROJECT_NAME > /tmp/tuist_token.txt
+   gh secret set TUIST_CONFIG_TOKEN < /tmp/tuist_token.txt
+   rm /tmp/tuist_token.txt
+   \`\`\`
+
+**Benefits**: Binary caching, selective testing, bundle size tracking
+**Without tokens**: Project works perfectly, but builds from scratch on every CI run
+
 ## 📖 Development Guide
 
 See \`CLAUDE.md\` for AI-assisted development guidelines and \`docs/development-workflow.md\` for team development workflows.

@@ -426,6 +426,34 @@ The project includes production-ready CI/CD workflows:
 - **Build & Test**: Full Tuist pipeline with iPhone 16 targeting  
 - **Dependabot**: Automatic dependency updates
 
+### ⚡ Tuist Cloud Setup (Recommended)
+To get **65-90% faster CI builds** through binary caching:
+
+1. **Authenticate with Tuist**:
+   ```bash
+   tuist auth login
+   ```
+
+2. **Create your project** (replace with your details):
+   ```bash
+   tuist project create your-handle/your-project-name
+   ```
+
+3. **Generate a token**:
+   ```bash
+   tuist project tokens create your-handle/your-project-name > /tmp/tuist_token.txt
+   ```
+
+4. **Add to GitHub Secrets**:
+   ```bash
+   gh secret set TUIST_CONFIG_TOKEN < /tmp/tuist_token.txt
+   rm /tmp/tuist_token.txt  # Clean up
+   ```
+
+**Benefits**: Binary caching, selective testing, bundle size tracking, and faster feedback loops.
+
+**Without tokens**: Your project will still work perfectly, but builds from scratch on every CI run.
+
 ### Local CI Testing
 ```bash
 make lint     # Test code quality locally

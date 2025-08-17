@@ -23,7 +23,25 @@ xcodebuild test -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCod
 ```yaml
 env:
   HOMEBREW_NO_AUTO_UPDATE: 1          # Skip brew updates (saves 2-3 minutes)
-  TUIST_CONFIG_STATS_OPT_OUT: 1       # Disable Tuist analytics in CI
+  CI: 1                               # Enable non-interactive mode
+  TUIST_CONFIG_TOKEN: ${{ secrets.TUIST_CONFIG_TOKEN }}  # Enable cloud features
+```
+
+### **⚡ Tuist Cloud Integration**
+The CI is configured to use Tuist cloud features for optimal performance:
+
+- **Binary Caching**: 65-90% build time reduction through cached dependencies
+- **Selective Testing**: Only runs tests affected by code changes
+- **Bundle Analysis**: Tracks app bundle size over time
+- **Project Analytics**: Insights into build performance and patterns
+
+**Setup for new projects**:
+```bash
+tuist auth login
+tuist project create your-handle/your-project-name
+tuist project tokens create your-handle/your-project-name > /tmp/token.txt
+gh secret set TUIST_CONFIG_TOKEN < /tmp/token.txt
+rm /tmp/token.txt
 ```
 
 ## 🎭 Local CI Testing with Act
