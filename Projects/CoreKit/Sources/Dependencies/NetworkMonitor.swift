@@ -34,14 +34,14 @@ extension NetworkMonitor: DependencyKey {
                 }
                 let queue = DispatchQueue(label: "NetworkMonitor")
                 monitor.start(queue: queue)
-                
+
                 continuation.onTermination = { _ in
                     monitor.cancel()
                 }
             }
         }
     )
-    
+
     public static let testValue = NetworkMonitor(
         isConnected: { true },
         pathUpdates: {
@@ -51,12 +51,12 @@ extension NetworkMonitor: DependencyKey {
             }
         }
     )
-    
+
     public static let previewValue = testValue
 }
 
-extension DependencyValues {
-    public var networkMonitor: NetworkMonitor {
+public extension DependencyValues {
+    var networkMonitor: NetworkMonitor {
         get { self[NetworkMonitor.self] }
         set { self[NetworkMonitor.self] = newValue }
     }

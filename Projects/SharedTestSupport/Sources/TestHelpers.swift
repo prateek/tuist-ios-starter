@@ -9,7 +9,7 @@ import Foundation
 
 public enum TestData {
     public static func samplePosts(count: Int = 3) -> [Post] {
-        (1...count).map { index in
+        (1 ... count).map { index in
             Post(
                 id: index,
                 title: "Sample Post \(index)",
@@ -18,22 +18,22 @@ public enum TestData {
             )
         }
     }
-    
+
     public static func longPost() -> Post {
         Post(
             id: 999,
             title: "This is a very long post title that might wrap to multiple lines in the UI to test how the layout handles longer content",
             body: """
             This is a very long post body that contains multiple paragraphs and extensive content to test how the UI handles longer text content.
-            
+
             It includes line breaks and various formatting to ensure that the UI can properly display and handle posts with substantial amounts of text content.
-            
+
             This helps us verify that our layout constraints and text handling work correctly across different content lengths and sizes.
             """,
             userId: 1
         )
     }
-    
+
     public static func emptyPost() -> Post {
         Post(id: 0, title: "", body: "", userId: 0)
     }
@@ -46,26 +46,22 @@ public extension NetworkClient {
         posts: [Post] = TestData.samplePosts(),
         shouldFail: Bool = false,
         error: NetworkError = .unknown
-    ) -> NetworkClient {
-        NetworkClient(
-            fetchPosts: {
-                if shouldFail {
-                    throw error
-                }
-                return posts
+    )
+        -> NetworkClient
+    {
+        NetworkClient {
+            if shouldFail {
+                throw error
             }
-        )
-    }
-    
-    static let alwaysFails = NetworkClient(
-        fetchPosts: {
-            throw NetworkError.networkError("Mock network failure")
+            return posts
         }
-    )
-    
-    static let empty = NetworkClient(
-        fetchPosts: { [] }
-    )
+    }
+
+    static let alwaysFails = NetworkClient {
+        throw NetworkError.networkError("Mock network failure")
+    }
+
+    static let empty = NetworkClient { [] }
 }
 
 // MARK: - Test Store Helpers

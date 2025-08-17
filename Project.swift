@@ -5,6 +5,7 @@ let project = Project(
     name: "iOSClaudeCodeStarter",
     targets: [
         // MARK: - App Target
+
         .app(
             name: "App",
             bundleId: "com.claudecode.starter.app",
@@ -20,9 +21,9 @@ let project = Project(
                         "NSAllowsLocalNetworking": true,
                         "NSExceptionDomains": [
                             "jsonplaceholder.typicode.com": [
-                                "NSExceptionRequiresForwardSecrecy": false
-                            ]
-                        ]
+                                "NSExceptionRequiresForwardSecrecy": false,
+                            ],
+                        ],
                     ],
                 ]
             ),
@@ -34,8 +35,9 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
-        
+
         // MARK: - Features Target
+
         .staticLibrary(
             name: "Features",
             bundleId: "com.claudecode.starter.features",
@@ -46,8 +48,9 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
-        
+
         // MARK: - CoreKit Target
+
         .staticLibrary(
             name: "CoreKit",
             bundleId: "com.claudecode.starter.corekit",
@@ -57,16 +60,18 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
-        
+
         // MARK: - DesignSystem Target
+
         .staticLibrary(
             name: "DesignSystem",
             bundleId: "com.claudecode.starter.designsystem",
             sources: ["Projects/DesignSystem/Sources/**"],
             resources: ["Projects/DesignSystem/Resources/**"]
         ),
-        
+
         // MARK: - Testing Targets (TMA Pattern)
+
         .staticLibrary(
             name: "CoreKitTesting",
             bundleId: "com.claudecode.starter.corekittesting",
@@ -76,7 +81,7 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
-        
+
         .staticLibrary(
             name: "FeaturesTesting",
             bundleId: "com.claudecode.starter.featurestesting",
@@ -87,7 +92,7 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
-        
+
         .staticLibrary(
             name: "DesignSystemTesting",
             bundleId: "com.claudecode.starter.designsystemtesting",
@@ -96,8 +101,9 @@ let project = Project(
                 .target(name: "DesignSystem"),
             ]
         ),
-        
+
         // MARK: - Test Targets
+
         .unitTests(
             name: "FeaturesTests",
             bundleId: "com.claudecode.starter.featurestests",
@@ -109,7 +115,7 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
-        
+
         .unitTests(
             name: "CoreKitTests",
             bundleId: "com.claudecode.starter.corekittests",
@@ -120,7 +126,7 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
-        
+
         .unitTests(
             name: "DesignSystemTests",
             bundleId: "com.claudecode.starter.designsystemtests",
@@ -130,7 +136,7 @@ let project = Project(
                 .target(name: "DesignSystemTesting"),
             ]
         ),
-        
+
         .staticLibrary(
             name: "SharedTestSupport",
             bundleId: "com.claudecode.starter.sharedtestsupport",
@@ -149,6 +155,6 @@ let project = Project(
             buildAction: .buildAction(targets: ["App"]),
             testAction: TestAction.targets(["FeaturesTests", "CoreKitTests", "DesignSystemTests"]),
             runAction: .runAction(configuration: "Debug")
-        )
+        ),
     ]
 )

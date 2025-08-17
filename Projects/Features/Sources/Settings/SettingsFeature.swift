@@ -14,8 +14,9 @@ public struct SettingsFeature {
         public var notificationsEnabled = true
         public var selectedTheme: Theme = .system
         public var username = ""
-        @Presents public var alert: AlertState<Action.Alert>?
-        
+        @Presents
+        public var alert: AlertState<Action.Alert>?
+
         public init(
             notificationsEnabled: Bool = true,
             selectedTheme: Theme = .system,
@@ -28,7 +29,7 @@ public struct SettingsFeature {
             self.alert = alert
         }
     }
-    
+
     public enum Action: Equatable, BindableAction {
         case binding(BindingAction<State>)
         case notificationsToggleChanged(Bool)
@@ -36,36 +37,36 @@ public struct SettingsFeature {
         case saveButtonTapped
         case resetButtonTapped
         case alert(PresentationAction<Alert>)
-        
+
         public enum Alert: Equatable {
             case confirmReset
         }
     }
-    
+
     public enum Theme: String, CaseIterable, Equatable {
         case light = "Light"
         case dark = "Dark"
         case system = "System"
     }
-    
+
     public init() {}
-    
+
     public var body: some ReducerOf<Self> {
         BindingReducer()
-        
+
         Reduce { state, action in
             switch action {
             case .binding:
                 return .none
-                
+
             case let .notificationsToggleChanged(isEnabled):
                 state.notificationsEnabled = isEnabled
                 return .none
-                
+
             case let .themeChanged(theme):
                 state.selectedTheme = theme
                 return .none
-                
+
             case .saveButtonTapped:
                 // In a real app, this would save to UserDefaults or server
                 state.alert = AlertState {
@@ -78,7 +79,7 @@ public struct SettingsFeature {
                     TextState(LocalizedStrings.Settings.settingsSavedMessage)
                 }
                 return .none
-                
+
             case .resetButtonTapped:
                 state.alert = AlertState {
                     TextState(LocalizedStrings.Settings.resetSettings)
@@ -93,13 +94,13 @@ public struct SettingsFeature {
                     TextState(LocalizedStrings.Settings.resetConfirmation)
                 }
                 return .none
-                
+
             case .alert(.presented(.confirmReset)):
                 state.notificationsEnabled = true
                 state.selectedTheme = .system
                 state.username = ""
                 return .none
-                
+
             case .alert:
                 return .none
             }
@@ -109,12 +110,13 @@ public struct SettingsFeature {
 }
 
 public struct SettingsView: View {
-    @Bindable public var store: StoreOf<SettingsFeature>
-    
+    @Bindable
+    public var store: StoreOf<SettingsFeature>
+
     public init(store: StoreOf<SettingsFeature>) {
         self.store = store
     }
-    
+
     public var body: some View {
         Form {
             Section {
@@ -127,11 +129,11 @@ public struct SettingsView: View {
             } header: {
                 Text(LocalizedStrings.Settings.profile)
             }
-            
+
             Section {
                 Toggle(LocalizedStrings.Settings.pushNotifications, isOn: $store.notificationsEnabled)
                     .body(.medium)
-                
+
                 HStack {
                     Text(LocalizedStrings.Settings.theme)
                         .body(.medium)
@@ -146,12 +148,12 @@ public struct SettingsView: View {
             } header: {
                 Text(LocalizedStrings.Settings.preferences)
             }
-            
+
             Section {
                 PrimaryButton(LocalizedStrings.Settings.saveSettings) {
                     store.send(.saveButtonTapped)
                 }
-                
+
                 PrimaryButton(LocalizedStrings.Settings.resetToDefaults, style: .outlined) {
                     store.send(.resetButtonTapped)
                 }
@@ -171,6 +173,7 @@ public struct SettingsView: View {
         )
     }
 }
+
 // EXAMPLE_END
 
 #Preview("Settings View - Custom State") {
@@ -188,4 +191,5 @@ public struct SettingsView: View {
         )
     }
 }
+
 // EXAMPLE_END

@@ -3,9 +3,9 @@
 
 import Foundation
 
-public struct LocalizedStrings {
-    
+public enum LocalizedStrings {
     // MARK: - Common UI
+
     public enum Common {
         public static let loading = "Loading"
         public static let error = "Error"
@@ -15,23 +15,26 @@ public struct LocalizedStrings {
         public static let reset = "Reset"
         public static let ok = "OK"
     }
-    
+
     // MARK: - Loading States
+
     public enum Loading {
         public static let posts = "Loading posts..."
         public static let content = "Loading content..."
         public static let refreshing = "Refreshing..."
         public static let generic = "Loading..."
     }
-    
+
     // MARK: - Error Messages
+
     public enum Error {
         public static let somethingWentWrong = "Something went wrong"
         public static let checkConnection = "Please check your internet connection."
         public static let tryAgain = "Try again later."
     }
-    
+
     // MARK: - Settings
+
     public enum Settings {
         public static let title = "Settings"
         public static let profile = "Profile"
@@ -47,14 +50,16 @@ public struct LocalizedStrings {
         public static let resetSettings = "Reset Settings"
         public static let resetConfirmation = "Are you sure you want to reset all settings to their default values?"
     }
-    
+
     // MARK: - Navigation
+
     public enum Navigation {
         public static let home = "Home"
         public static let settings = "Settings"
     }
-    
+
     // MARK: - Accessibility
+
     public enum Accessibility {
         public static let post = "Post"
         public static let loadingWithMessage = "Loading. %@"
@@ -63,9 +68,10 @@ public struct LocalizedStrings {
 }
 
 // MARK: - Helper Extensions
+
 public extension String {
     /// Format string with arguments for localization-ready implementation
     func formatted(with arguments: CVarArg...) -> String {
-        return String(format: self, arguments: arguments)
+        String(format: self, arguments: arguments)
     }
 }

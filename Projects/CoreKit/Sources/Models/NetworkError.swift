@@ -9,19 +9,19 @@ public enum NetworkError: Error, Equatable, LocalizedError {
     case decodingError
     case networkError(String)
     case unknown
-    
+
     public var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "Invalid URL" // TODO: Localize when L10n infrastructure is added
+            "Invalid URL" // TODO: Localize when L10n infrastructure is added
         case .noData:
-            return "No data received" // TODO: Localize when L10n infrastructure is added
+            "No data received" // TODO: Localize when L10n infrastructure is added
         case .decodingError:
-            return "Failed to decode response" // TODO: Localize when L10n infrastructure is added
+            "Failed to decode response" // TODO: Localize when L10n infrastructure is added
         case .networkError(let message):
-            return "Network error: \(message)" // TODO: Localize when L10n infrastructure is added
+            "Network error: \(message)" // TODO: Localize when L10n infrastructure is added
         case .unknown:
-            return "An unknown error occurred" // TODO: Localize when L10n infrastructure is added
+            "An unknown error occurred" // TODO: Localize when L10n infrastructure is added
         }
     }
 }

@@ -8,7 +8,7 @@ public struct PrimaryButton: View {
     let action: () -> Void
     let isEnabled: Bool
     let style: Style
-    
+
     public init(
         _ title: String,
         style: Style = .filled,
@@ -20,7 +20,7 @@ public struct PrimaryButton: View {
         self.isEnabled = isEnabled
         self.action = action
     }
-    
+
     public var body: some View {
         Button(action: action) {
             HStack {
@@ -44,31 +44,31 @@ public struct PrimaryButton: View {
         .accessibilityAddTraits(.isButton)
         .accessibilityLabel(title)
     }
-    
+
     private var backgroundColor: Color {
         switch style {
         case .filled:
-            return .buttonPrimary
+            .buttonPrimary
         case .outlined, .text:
-            return .clear
+            .clear
         }
     }
-    
+
     private var textColor: Color {
         switch style {
         case .filled:
-            return .white
+            .white
         case .outlined, .text:
-            return .buttonPrimary
+            .buttonPrimary
         }
     }
-    
+
     private var borderColor: Color {
         switch style {
         case .filled, .text:
-            return .clear
+            .clear
         case .outlined:
-            return .buttonPrimary
+            .buttonPrimary
         }
     }
 }
@@ -86,15 +86,15 @@ public extension PrimaryButton {
         PrimaryButton("Filled Button", style: .filled) {
             print("Filled button tapped")
         }
-        
+
         PrimaryButton("Outlined Button", style: .outlined) {
             print("Outlined button tapped")
         }
-        
+
         PrimaryButton("Text Button", style: .text) {
             print("Text button tapped")
         }
-        
+
         PrimaryButton("Disabled Button", isEnabled: false) {
             print("This won't be called")
         }

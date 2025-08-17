@@ -2,18 +2,16 @@
 # Consistent formatting for AI-generated code
 
 # Version (for consistency across team)
---swiftversion 5.9
+--swiftversion 6.0
 
 # Formatting rules
 --enable isEmpty
 --enable sortImports
---enable sortedSwitchCases
 --enable wrapMultilineStatementBraces
 --enable preferForLoop
 --enable preferKeyPath
 --enable redundantReturn
 --enable sortDeclarations
---enable blankLinesBetweenImports
 
 # Indent using spaces
 --indent 4
@@ -28,8 +26,6 @@
 
 # Spacing
 --trimwhitespace always
---insertlines always
---removelines always
 
 # Braces
 --allman false

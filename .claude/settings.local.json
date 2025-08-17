@@ -63,7 +63,17 @@
       "Bash(grep:*)",
       "Bash(/dev/null)",
       "Bash(source:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(git rm:*)",
+      "WebSearch",
+      "mcp__zen__challenge",
+      "Bash(pre-commit run check-filenames:*)",
+      "Bash(pre-commit run check-focused-tests:*)",
+      "Bash(act:*)",
+      "Bash(pre-commit run:*)",
+      "WebFetch(domain:nektosact.com)",
+      "mcp__github__list_workflow_runs",
+      "mcp__github__get_job_logs"
     ]
   },
   "enableAllProjectMcpServers": true,

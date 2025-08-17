@@ -15,7 +15,7 @@ public struct HomeFeature {
         public var posts: [Post] = []
         public var isLoading = false
         public var error: String?
-        
+
         public init(
             posts: [Post] = [],
             isLoading: Bool = false,
@@ -26,17 +26,18 @@ public struct HomeFeature {
             self.error = error
         }
     }
-    
+
     public enum Action: Equatable {
         case onAppear
         case refreshButtonTapped
         case postsResponse(Result<[Post], NetworkError>)
     }
-    
-    @Dependency(\.networkClient) var networkClient
-    
+
+    @Dependency(\.networkClient)
+    var networkClient
+
     public init() {}
-    
+
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -50,19 +51,19 @@ public struct HomeFeature {
                         }
                         .mapError { error in
                             if let networkError = error as? NetworkError {
-                                return networkError
+                                networkError
                             } else {
-                                return NetworkError.unknown
+                                NetworkError.unknown
                             }
                         }
                     ))
                 }
-                
+
             case let .postsResponse(.success(posts)):
                 state.isLoading = false
                 state.posts = posts
                 return .none
-                
+
             case let .postsResponse(.failure(error)):
                 state.isLoading = false
                 state.error = error.localizedDescription
@@ -73,15 +74,16 @@ public struct HomeFeature {
 }
 
 public struct HomeView: View {
-    @Bindable public var store: StoreOf<HomeFeature>
-    
+    @Bindable
+    public var store: StoreOf<HomeFeature>
+
     public init(store: StoreOf<HomeFeature>) {
         self.store = store
     }
-    
+
     public var body: some View {
         Group {
-            if store.isLoading && store.posts.isEmpty {
+            if store.isLoading, store.posts.isEmpty {
                 LoadingView(message: LocalizedStrings.Loading.posts)
             } else if let error = store.error, store.posts.isEmpty {
                 errorView(error)
@@ -97,7 +99,7 @@ public struct HomeView: View {
             store.send(.refreshButtonTapped)
         }
     }
-    
+
     @ViewBuilder
     private var postsListView: some View {
         List {
@@ -112,7 +114,7 @@ public struct HomeView: View {
                 }
                 .listRowSeparator(.hidden)
             }
-            
+
             ForEach(store.posts) { post in
                 PostRowView(post: post)
                     .listRowSeparator(.visible)
@@ -120,22 +122,22 @@ public struct HomeView: View {
         }
         .listStyle(.plain)
     }
-    
+
     @ViewBuilder
     private func errorView(_ error: String) -> some View {
         VStack(spacing: .spacingM) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 48))
                 .foregroundColor(.destructive)
-            
+
             Text(LocalizedStrings.Error.somethingWentWrong)
                 .heading(.medium)
-            
+
             Text(error)
                 .body(.medium)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.textSecondary)
-            
+
             PrimaryButton(LocalizedStrings.Common.retry) {
                 store.send(.refreshButtonTapped)
             }
@@ -147,13 +149,13 @@ public struct HomeView: View {
 
 private struct PostRowView: View {
     let post: Post
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: .spacingS) {
             Text(post.title)
                 .heading(.small)
                 .lineLimit(2)
-            
+
             Text(post.body)
                 .body(.medium)
                 .foregroundColor(.textSecondary)
@@ -168,14 +170,22 @@ private struct PostRowView: View {
 #Preview("Home View - Loaded") {
     NavigationView {
         withDependencies {
-            $0.networkClient = NetworkClient(
-                fetchPosts: {
-                    [
-                        Post(id: 1, title: "Sample Post 1", body: "This is a sample post body that shows how posts will look in the app.", userId: 1),
-                        Post(id: 2, title: "Another Post", body: "Here's another post with different content to show variety.", userId: 1)
-                    ]
-                }
-            )
+            $0.networkClient = NetworkClient {
+                [
+                    Post(
+                        id: 1,
+                        title: "Sample Post 1",
+                        body: "This is a sample post body that shows how posts will look in the app.",
+                        userId: 1
+                    ),
+                    Post(
+                        id: 2,
+                        title: "Another Post",
+                        body: "Here's another post with different content to show variety.",
+                        userId: 1
+                    ),
+                ]
+            }
         } operation: {
             HomeView(
                 store: Store(initialState: HomeFeature.State()) {
@@ -209,4 +219,5 @@ private struct PostRowView: View {
         )
     }
 }
+
 // EXAMPLE_END

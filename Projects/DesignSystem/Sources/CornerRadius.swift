@@ -14,21 +14,21 @@ public enum CornerRadius {
     case extraLarge
     /// 24pt - Hero elements and special containers
     case xxl
-    
+
     public var value: CGFloat {
         switch self {
-        case .small: return 4
-        case .medium: return 8
-        case .large: return 12
-        case .extraLarge: return 16
-        case .xxl: return 24
+        case .small: 4
+        case .medium: 8
+        case .large: 12
+        case .extraLarge: 16
+        case .xxl: 24
         }
     }
 }
 
 public extension CGFloat {
-    /// Design token namespace for corner radius values  
-    struct CornerRadius {
+    /// Design token namespace for corner radius values
+    enum CornerRadius {
         public static let small: CGFloat = 4
         public static let medium: CGFloat = 8
         public static let large: CGFloat = 12

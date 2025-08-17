@@ -24,19 +24,19 @@ public enum Spacing {
     case extraLarge
     /// 48pt - Maximum spacing
     case xxl
-    
+
     public var value: CGFloat {
         switch self {
-        case .xxs: return 2
-        case .extraSmall: return 4
-        case .smallMedium: return 6
-        case .small: return 8
-        case .mediumSmall: return 12
-        case .medium: return 16
-        case .mediumLarge: return 20
-        case .large: return 24
-        case .extraLarge: return 32
-        case .xxl: return 48
+        case .xxs: 2
+        case .extraSmall: 4
+        case .smallMedium: 6
+        case .small: 8
+        case .mediumSmall: 12
+        case .medium: 16
+        case .mediumLarge: 20
+        case .large: 24
+        case .extraLarge: 32
+        case .xxl: 48
         }
     }
 }

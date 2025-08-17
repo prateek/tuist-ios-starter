@@ -13,7 +13,6 @@ excluded:
 
 # Enable additional rules
 opt_in_rules:
-  - anyobject_protocol
   - array_init
   - closure_spacing
   - contains_over_filter_count
@@ -77,9 +76,6 @@ nesting:
   type_level:
     warning: 2
     error: 3
-  statement_level:
-    warning: 3
-    error: 5
 
 identifier_name:
   min_length:
@@ -106,7 +102,7 @@ trailing_whitespace:
 custom_rules:
   reducer_naming:
     name: "Reducer Naming"
-    regex: '(struct|class)\s+\w+(?!Reducer|Feature)\s*:\s*.*Reducer'
+    regex: '(struct|class)\s+(?!.*(?:Reducer|Feature))\w+\s*:\s*.*Reducer'
     message: "Reducers should be named with 'Feature' or 'Reducer' suffix"
     severity: warning
 
@@ -145,11 +141,5 @@ custom_rules:
     message: "DesignSystem should not import CoreKit. Keep UI components independent."
     severity: error
 
-  require_aboutme_comments:
-    name: "Require ABOUTME Comments"
-    regex: "^// ABOUTME:"
-    included: "Projects/.*/Sources/.*\\.swift"
-    message: "Source files should start with ABOUTME comments explaining the file's purpose."
-    severity: warning
 
 reporter: "xcode"

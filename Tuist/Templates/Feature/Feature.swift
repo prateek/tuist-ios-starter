@@ -27,7 +27,7 @@ let template = Template(
                 public struct State: Equatable {
                     public var isLoading = false
                     public var error: String?
-                    
+
                     public init(
                         isLoading: Bool = false,
                         error: String? = nil
@@ -36,22 +36,22 @@ let template = Template(
                         self.error = error
                     }
                 }
-                
+
                 public enum Action: Equatable {
                     case onAppear
                     case refreshButtonTapped
                     // Add feature-specific actions here
                 }
-                
+
                 public init() {}
-                
+
                 public var body: some ReducerOf<Self> {
                     Reduce { state, action in
                         switch action {
                         case .onAppear:
                             // Implement feature logic
                             return .none
-                            
+
                         case .refreshButtonTapped:
                             // Implement refresh logic
                             return .none
@@ -62,16 +62,16 @@ let template = Template(
 
             public struct \(nameAttribute)View: View {
                 @Bindable public var store: StoreOf<\(nameAttribute)Feature>
-                
+
                 public init(store: StoreOf<\(nameAttribute)Feature>) {
                     self.store = store
                 }
-                
+
                 public var body: some View {
                     VStack {
                         Text("\(nameAttribute) Feature")
                             .heading(.large)
-                        
+
                         if store.isLoading {
                             LoadingView(message: "Loading...")
                         } else if let error = store.error {
@@ -81,7 +81,7 @@ let template = Template(
                             Text("Feature content goes here")
                                 .body(.medium)
                         }
-                        
+
                         PrimaryButton("Refresh") {
                             store.send(.refreshButtonTapped)
                         }
@@ -105,7 +105,7 @@ let template = Template(
             }
             """
         ),
-        
+
         // Feature Tests
         .string(
             path: "Projects/Features/Tests/\(nameAttribute)FeatureTests.swift",
@@ -121,22 +121,22 @@ let template = Template(
             @testable import Features
 
             final class \(nameAttribute)FeatureTests: XCTestCase {
-                
+
                 func testOnAppear() async {
                     let store = \(nameAttribute)Feature.testStore()
-                    
+
                     await store.send(.onAppear)
                 }
-                
+
                 func testRefreshButton() async {
                     let store = \(nameAttribute)Feature.testStore()
-                    
+
                     await store.send(.refreshButtonTapped)
                 }
             }
             """
         ),
-        
+
         // Feature Testing Utilities
         .string(
             path: "Projects/Features/Testing/Sources/\(nameAttribute)Testing.swift",

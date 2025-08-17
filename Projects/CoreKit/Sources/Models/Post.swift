@@ -8,7 +8,7 @@ public struct Post: Codable, Identifiable, Equatable, Sendable {
     public let title: String
     public let body: String
     public let userId: Int
-    
+
     public init(id: Int, title: String, body: String, userId: Int) {
         self.id = id
         self.title = title

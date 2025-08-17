@@ -11,48 +11,48 @@ public struct RootFeature {
         public var selectedTab: Tab = .home
         public var homeFeature = HomeFeature.State()
         public var settingsFeature = SettingsFeature.State()
-        
+
         public init() {}
     }
-    
+
     public enum Action: Equatable {
         case tabSelected(Tab)
         case home(HomeFeature.Action)
         case settings(SettingsFeature.Action)
     }
-    
+
     public enum Tab: String, CaseIterable, Equatable {
         case home = "Home"
         case settings = "Settings"
-        
+
         public var systemImage: String {
             switch self {
-            case .home: return "house"
-            case .settings: return "gear"
+            case .home: "house"
+            case .settings: "gear"
             }
         }
     }
-    
+
     public init() {}
-    
+
     public var body: some ReducerOf<Self> {
         Scope(state: \.homeFeature, action: \.home) {
             HomeFeature()
         }
-        
+
         Scope(state: \.settingsFeature, action: \.settings) {
             SettingsFeature()
         }
-        
+
         Reduce { state, action in
             switch action {
             case let .tabSelected(tab):
                 state.selectedTab = tab
                 return .none
-                
+
             case .home:
                 return .none
-                
+
             case .settings:
                 return .none
             }
@@ -61,12 +61,13 @@ public struct RootFeature {
 }
 
 public struct RootView: View {
-    @Bindable public var store: StoreOf<RootFeature>
-    
+    @Bindable
+    public var store: StoreOf<RootFeature>
+
     public init(store: StoreOf<RootFeature>) {
         self.store = store
     }
-    
+
     public var body: some View {
         TabView(selection: $store.selectedTab.sending(\.tabSelected)) {
             ForEach(RootFeature.Tab.allCases, id: \.self) { tab in

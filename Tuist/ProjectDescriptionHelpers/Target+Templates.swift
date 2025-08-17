@@ -1,14 +1,16 @@
 import ProjectDescription
 
-extension Target {
-    public static func app(
+public extension Target {
+    static func app(
         name: String,
         bundleId: String,
         infoPlist: InfoPlist = .default,
         sources: SourceFilesList = ["Sources/**"],
         resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
-    ) -> Target {
+    )
+        -> Target
+    {
         .target(
             name: name,
             destinations: .iOS,
@@ -21,14 +23,16 @@ extension Target {
             dependencies: dependencies
         )
     }
-    
-    public static func framework(
+
+    static func framework(
         name: String,
         bundleId: String,
         sources: SourceFilesList = ["Sources/**"],
         resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
-    ) -> Target {
+    )
+        -> Target
+    {
         .target(
             name: name,
             destinations: .iOS,
@@ -40,14 +44,16 @@ extension Target {
             dependencies: dependencies
         )
     }
-    
-    public static func staticLibrary(
+
+    static func staticLibrary(
         name: String,
         bundleId: String,
         sources: SourceFilesList = ["Sources/**"],
         resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
-    ) -> Target {
+    )
+        -> Target
+    {
         .target(
             name: name,
             destinations: .iOS,
@@ -59,13 +65,15 @@ extension Target {
             dependencies: dependencies
         )
     }
-    
-    public static func unitTests(
+
+    static func unitTests(
         name: String,
         bundleId: String,
         sources: SourceFilesList = ["Tests/**"],
         dependencies: [TargetDependency] = []
-    ) -> Target {
+    )
+        -> Target
+    {
         .target(
             name: name,
             destinations: .iOS,
