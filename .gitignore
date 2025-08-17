@@ -69,3 +69,7 @@ Tuist/Signing/
 
 # Dependencies
 .dependencies/
+
+# Environment variables
+.env
+.env.*

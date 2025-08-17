@@ -553,6 +553,44 @@ See `Documentation/NetworkTroubleshooting.md` for detailed guidance.
 - **Support Dynamic Type** and accessibility features
 - **Test on multiple device sizes** (iPhone SE to Pro Max)
 
+## 🔌 MCP Servers & AI Integration
+
+### **Available MCP Servers**
+The project includes pre-configured MCP (Model Context Protocol) servers for enhanced AI capabilities:
+
+**🧠 Zen MCP**: Advanced thinking, debugging, and analysis tools
+- **Purpose**: Multi-model consensus, deep analysis, code review workflows
+- **Tools**: thinkdeep, consensus, debug, analyze, refactor, precommit
+- **Configuration**: Auto-configured in `.mcp.json`
+
+**🐙 GitHub MCP**: Direct GitHub integration and repository management
+- **Purpose**: Issues, PRs, repositories, project management from Claude Code
+- **Tools**: Repository access, issue management, pull request operations
+- **Setup**: Requires GitHub authentication via `gh` CLI
+
+### **GitHub MCP Setup**
+```bash
+# One-time setup
+gh auth login                                    # Authenticate with GitHub
+gh auth refresh --scopes "repo,read:packages,read:org" --hostname github.com
+echo "GITHUB_PAT=$(gh auth token)" > .env        # Create secure .env file
+
+# Or use the automated setup
+make setup                                       # Includes GitHub MCP setup
+```
+
+**Configuration**: 
+- **Secure**: Uses `.env` file (gitignored) with dynamic `gh auth token`
+- **Team-friendly**: Each developer uses their own GitHub credentials  
+- **No hardcoded secrets**: Safe to commit `.mcp.json` configuration
+- **Auto-renewal**: gh CLI handles token refresh
+
+### **MCP Server Benefits**
+- **Enhanced capabilities**: Access to specialized AI tools beyond base Claude
+- **GitHub integration**: Direct repository and project management
+- **Secure authentication**: Environment variable based, no committed secrets
+- **Team consistency**: Shared `.mcp.json` ensures everyone has same tools
+
 ---
 
 This guide ensures consistent, high-quality code generation. When in doubt, follow existing patterns in the codebase and prioritize clarity and maintainability.

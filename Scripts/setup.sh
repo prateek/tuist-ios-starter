@@ -56,6 +56,22 @@ standard_setup() {
         echo "✅ Tuist is already installed"
     fi
     
+    # Setup GitHub MCP authentication
+    if command -v gh &> /dev/null; then
+        echo "🐙 Setting up GitHub MCP authentication..."
+        if gh auth status &> /dev/null; then
+            # Refresh auth with required scopes
+            gh auth refresh --scopes "repo,read:packages,read:org" --hostname github.com || true
+            # Create .env file with PAT
+            echo "GITHUB_PAT=$(gh auth token)" > .env
+            echo "✅ GitHub MCP configured"
+        else
+            echo "⚠️  Run 'gh auth login' first for GitHub MCP integration"
+        fi
+    else
+        echo "⚠️  Install gh CLI for GitHub MCP: brew install gh"
+    fi
+    
     # Generate Xcode project
     echo "🔨 Generating Xcode project..."
     tuist install
