@@ -103,7 +103,7 @@ test-corekit: ## Run only CoreKit module tests
 lint:
 	@echo "🔍 Running SwiftLint..."
 	@if command -v swiftlint >/dev/null 2>&1; then \
-		swiftlint; \
+		swiftlint --strict; \
 	else \
 		echo "⚠️  SwiftLint not installed. Install with: brew install swiftlint"; \
 	fi
