@@ -79,7 +79,8 @@
       "Bash(DO_NOT_TRACK=1 tuist generate --no-open)",
       "mcp__github__search_code",
       "mcp__github__get_file_contents",
-      "Bash(swiftformat:*)"
+      "Bash(swiftformat:*)",
+      "WebFetch(domain:docs.anthropic.com)"
     ]
   },
   "enableAllProjectMcpServers": true,
