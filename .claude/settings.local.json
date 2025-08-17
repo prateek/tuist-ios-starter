@@ -80,7 +80,8 @@
       "mcp__github__search_code",
       "mcp__github__get_file_contents",
       "Bash(swiftformat:*)",
-      "WebFetch(domain:docs.anthropic.com)"
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(git commit:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
