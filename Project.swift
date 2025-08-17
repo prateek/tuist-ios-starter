@@ -154,7 +154,7 @@ let project = Project(
             shared: true,
             buildAction: .buildAction(targets: ["App"]),
             testAction: TestAction.targets(["FeaturesTests", "CoreKitTests", "DesignSystemTests"]),
-            runAction: .runAction(configuration: "Debug")
+            runAction: .runAction(configuration: "Debug", executable: "App")
         ),
     ]
 )
