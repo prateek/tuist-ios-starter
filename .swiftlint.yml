@@ -1,0 +1,155 @@
+# SwiftLint configuration for iOS Claude Code Starter
+# Focuses on maintainability and consistency for AI-generated code
+
+# Paths to include during linting
+included:
+  - Projects
+
+# Paths to exclude during linting
+excluded:
+  - Derived
+  - .build
+  - Tuist/.build
+
+# Enable additional rules
+opt_in_rules:
+  - anyobject_protocol
+  - array_init
+  - closure_spacing
+  - contains_over_filter_count
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - explicit_init
+  - fatal_error_message
+  - first_where
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - joined_default_parameter
+  - last_where
+  - legacy_random
+  - literal_expression_end_indentation
+  - multiline_arguments
+  - multiline_function_chains
+  - multiline_literal_brackets
+  - multiline_parameters
+  - multiline_parameters_brackets
+  - operator_usage_whitespace
+  - overridden_super_call
+  - pattern_matching_keywords
+  - prefer_self_type_over_type_of_self
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - single_test_class
+  - sorted_first_last
+  - switch_case_alignment
+  - toggle_bool
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - unused_import
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace_closing_braces
+  - yoda_condition
+
+# Disabled rules
+disabled_rules:
+  - todo
+  - line_length # Let SwiftFormat handle this
+
+# Custom rule configurations
+file_length:
+  warning: 400
+  error: 500
+
+function_body_length:
+  warning: 50
+  error: 80
+
+type_body_length:
+  warning: 250
+  error: 350
+
+cyclomatic_complexity:
+  warning: 8
+  error: 12
+
+nesting:
+  type_level:
+    warning: 2
+    error: 3
+  statement_level:
+    warning: 3
+    error: 5
+
+identifier_name:
+  min_length:
+    warning: 2
+    error: 1
+  max_length:
+    warning: 40
+    error: 50
+  excluded:
+    - id
+    - URL
+    - url
+
+# Force unwrapping configuration
+force_unwrapping:
+  severity: error
+
+# Trailing whitespace
+trailing_whitespace:
+  ignores_empty_lines: true
+  ignores_comments: true
+
+# Custom rules for TCA patterns
+custom_rules:
+  reducer_naming:
+    name: "Reducer Naming"
+    regex: '(struct|class)\s+\w+(?!Reducer|Feature)\s*:\s*.*Reducer'
+    message: "Reducers should be named with 'Feature' or 'Reducer' suffix"
+    severity: warning
+
+  action_naming:
+    name: "Action Case Naming"
+    regex: 'case\s+[A-Z]'
+    message: "Action cases should start with lowercase"
+    severity: warning
+
+  # TMA Module Boundary Rules
+  no_ui_in_corekit:
+    name: "No UI Imports in CoreKit"
+    regex: "^import (SwiftUI|UIKit)"
+    included: "Projects/CoreKit/Sources/.*\\.swift"
+    message: "CoreKit should not import UI frameworks. Move UI code to Features or DesignSystem."
+    severity: error
+
+  no_networking_in_app:
+    name: "No Networking in App"
+    regex: "(URLSession|HTTPURLResponse|URLRequest|NetworkClient)"
+    included: "Projects/App/Sources/.*\\.swift"
+    message: "App module should not contain networking code. Use CoreKit dependencies."
+    severity: error
+
+  no_features_in_corekit:
+    name: "No Features Import in CoreKit"
+    regex: "^import Features"
+    included: "Projects/CoreKit/Sources/.*\\.swift"
+    message: "CoreKit should not import Features. Features depend on CoreKit, not vice versa."
+    severity: error
+
+  no_corekit_in_designsystem:
+    name: "No CoreKit in DesignSystem"
+    regex: "^import CoreKit"
+    included: "Projects/DesignSystem/Sources/.*\\.swift"
+    message: "DesignSystem should not import CoreKit. Keep UI components independent."
+    severity: error
+
+  require_aboutme_comments:
+    name: "Require ABOUTME Comments"
+    regex: "^// ABOUTME:"
+    included: "Projects/.*/Sources/.*\\.swift"
+    message: "Source files should start with ABOUTME comments explaining the file's purpose."
+    severity: warning
+
+reporter: "xcode"
