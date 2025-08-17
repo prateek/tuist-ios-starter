@@ -1,0 +1,62 @@
+# SwiftFormat configuration for iOS Claude Code Starter
+# Consistent formatting for AI-generated code
+
+# Version (for consistency across team)
+--swiftversion 5.9
+
+# Formatting rules
+--enable isEmpty
+--enable sortImports
+--enable sortedSwitchCases
+--enable wrapMultilineStatementBraces
+--enable preferForLoop
+--enable preferKeyPath
+--enable redundantReturn
+--enable sortDeclarations
+--enable blankLinesBetweenImports
+
+# Indent using spaces
+--indent 4
+--tabwidth 4
+
+# Line length
+--maxwidth 120
+--wrapcollections before-first
+
+# Import organization
+--importgrouping testable-bottom
+
+# Spacing
+--trimwhitespace always
+--insertlines always
+--removelines always
+
+# Braces
+--allman false
+--wraparguments before-first
+--wrapparameters before-first
+--wrapconditions after-first
+--wrapreturntype if-multiline
+
+# Control flow
+--guardelse auto
+--elseposition same-line
+
+# Function calls
+--funcattributes prev-line
+--typeattributes prev-line
+--storedvarattrs prev-line
+--computedvarattrs prev-line
+
+# Semicolons
+--semicolons never
+
+# Header comments
+--header strip
+
+# Exclude Tuist generated files and dependencies
+--exclude Derived,**/Derived,Tuist/.build,.build
+
+# Custom rules for TCA patterns
+--disable redundantSelf # Keep self for clarity in TCA reducers
+--disable hoistPatternLet # Can conflict with TCA patterns
