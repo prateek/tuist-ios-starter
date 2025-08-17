@@ -473,9 +473,36 @@ tuist build App           # Build with caching
 xcodebuild test -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
-### **Local CI Testing**
+### **Local CI Testing with Act (Complete Solution)**
+
+**🎭 Act Self-Hosted Mode**: Run the complete CI pipeline locally using native macOS tools:
+
 ```bash
-# Test CI commands locally
+# Complete CI simulation (all jobs)
+make validate-ci-act      # Run full CI pipeline with act
+
+# Individual job testing  
+make validate-ci-jobs     # Test Code Quality + Build & Test jobs separately
+
+# Workflow structure validation
+make validate-ci-dry      # Validate YAML structure and job logic
+```
+
+**🔧 How it works**:
+- Uses `act -P macos-15=-self-hosted` to run on native macOS (not Docker)
+- Accesses your local Xcode, simulators, and Homebrew tools
+- Runs the exact same commands as GitHub Actions CI
+- Provides identical feedback to what CI will produce
+
+**⚙️ Configuration**: `.actrc` file automatically configures act for iOS development:
+```bash
+-P macos-15=-self-hosted      # Use native macOS execution
+--pull=false                  # Don't pull Docker images
+--action-offline-mode         # Use local action cache
+```
+
+**🚀 Traditional Testing** (still available):
+```bash
 make lint                 # Same as CI code quality check
 make format               # Format code like CI expects
 make build                # Same build command as CI

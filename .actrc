@@ -1,0 +1,12 @@
+# Act configuration for iOS Claude Code Starter
+# Use self-hosted mode to run on native macOS with Xcode
+
+# Use self-hosted runners for macOS jobs
+-P macos-15=-self-hosted
+-P macos-latest=-self-hosted
+
+# Disable image pulling since we're running natively
+--pull=false
+
+# Use local action cache when possible
+--action-offline-mode

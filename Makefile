@@ -1,7 +1,7 @@
 # Makefile for iOS Claude Code Starter
 # Common development tasks and automation
 
-.PHONY: help setup install generate clean test lint format tuist-clean debug-local clean-simulators reset-network diagnose-network setup-hooks
+.PHONY: help setup install generate clean test lint format tuist-clean debug-local clean-simulators reset-network diagnose-network setup-hooks validate-ci-act validate-ci-jobs validate-ci-dry
 
 # Default target
 help:
@@ -39,6 +39,11 @@ help:
 	@echo "  debug-local      - Build with local data (no network)"
 	@echo "  reset-network    - Reset network configuration"
 	@echo "  diagnose-network - Diagnose network connectivity"
+	@echo ""
+	@echo "CI Validation:"
+	@echo "  validate-ci-act  - Run complete CI with act (native macOS)"
+	@echo "  validate-ci-jobs - Test individual CI jobs with act"
+	@echo "  validate-ci-dry  - Validate CI workflow structure"
 	@echo ""
 	@echo "Maintenance:"
 	@echo "  tuist-clean     - Clean Tuist cache and regenerate"
@@ -197,5 +202,36 @@ setup-hooks:
 		echo "Run 'pre-commit run --all-files' to test all hooks"; \
 	else \
 		echo "❌ Pre-commit not found. Install with: brew install pre-commit"; \
+		exit 1; \
+	fi
+
+# CI validation with act (native macOS execution)
+validate-ci-act: ## Run complete CI with act (self-hosted mode)
+	@echo "🎭 Running CI with act (native macOS execution)..."
+	@if command -v act >/dev/null 2>&1; then \
+		act -P macos-15=-self-hosted; \
+	else \
+		echo "❌ Act not found. Install with: brew install act"; \
+		exit 1; \
+	fi
+
+validate-ci-jobs: ## Test individual CI jobs with act
+	@echo "🧪 Testing individual CI jobs..."
+	@if command -v act >/dev/null 2>&1; then \
+		echo "Testing Code Quality job..."; \
+		act -j lint-and-format -P macos-15=-self-hosted; \
+		echo "Testing Build & Test job..."; \
+		act -j build-and-test -P macos-15=-self-hosted; \
+	else \
+		echo "❌ Act not found. Install with: brew install act"; \
+		exit 1; \
+	fi
+
+validate-ci-dry: ## Validate CI workflow structure with act
+	@echo "🔍 Validating CI workflow structure..."
+	@if command -v act >/dev/null 2>&1; then \
+		act -n -P macos-15=-self-hosted; \
+	else \
+		echo "❌ Act not found. Install with: brew install act"; \
 		exit 1; \
 	fi

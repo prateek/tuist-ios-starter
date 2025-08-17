@@ -22,6 +22,14 @@
   - Updated CLAUDE.md with detailed setup and troubleshooting instructions
   - Rejected Husky in favor of pre-commit framework (better for Swift/iOS ecosystem)
 
+- [x] ~~Implement complete CI testing with act~~
+  - **COMPLETED**: Discovered act's self-hosted mode for native macOS execution
+  - Created `.actrc` configuration for iOS development with `-P macos-15=-self-hosted`
+  - Added Makefile targets: `validate-ci-act`, `validate-ci-jobs`, `validate-ci-dry`
+  - Updated CLAUDE.md with comprehensive act + self-hosted documentation
+  - Successfully tested workflow structure validation with native Xcode access
+  - Provides complete local CI simulation without Docker limitations
+
 - [ ] Instructions for setup/install of suggested MCP servers (exa + zen + context7 + xcodebuilmcp) + sample JSON of mcp config
 
 ## Code Signing & Device Installation
