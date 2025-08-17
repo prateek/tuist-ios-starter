@@ -1,3 +1,73 @@
+## 🔧 Tool Selection Guidelines
+
+### **MCP Tools vs CLI Tools - When to Use What**
+
+**✅ PREFER: MCP XcodeBuildMCP Tools (When Available)**
+
+Use MCP tools as your **first choice** for Xcode and simulator interactions:
+
+```bash
+# ✅ PREFERRED: MCP tools provide higher-level abstractions
+mcp__XcodeBuildMCP__build_run_ios_sim_name_ws  # vs xcodebuild + xcrun simctl launch
+mcp__XcodeBuildMCP__screenshot                 # vs xcrun simctl io screenshot
+mcp__XcodeBuildMCP__tap                       # vs manual simulator interaction
+mcp__XcodeBuildMCP__launch_app_logs_sim       # vs xcrun simctl spawn log
+```
+
+**Why MCP Tools Are Better:**
+- **Higher-level abstractions** - handle complex parameter construction automatically
+- **Better error handling** - built-in retry logic and clearer error messages
+- **State management** - track simulator state and handle edge cases
+- **Consistency** - standardized interface across Xcode/simulator versions
+- **UI testing capabilities** - seamless `tap`, `swipe`, `type_text` interactions
+- **Claude integration** - designed to work optimally with AI workflows
+
+**🔄 FALLBACK: CLI Tools (When MCP Not Available)**
+
+Use CLI tools when MCP doesn't cover your specific need:
+
+```bash
+# ✅ ACCEPTABLE: CLI fallbacks for specific cases
+xcrun simctl list devices                      # Device enumeration
+xcodebuild -showBuildSettings                 # Detailed build configuration
+xcrun simctl get_app_container DEVICE BUNDLE  # App container inspection
+plutil -p Info.plist                          # Plist file inspection
+```
+
+**When CLI Tools Are Appropriate:**
+- Quick debugging and inspection commands
+- Specific xcodebuild parameters not exposed by MCP
+- Educational purposes (learning underlying commands)
+- One-off administrative tasks
+
+### **Practical Examples**
+
+**✅ MCP Approach (Recommended):**
+```bash
+# Complete UI testing workflow with MCP
+mcp__XcodeBuildMCP__build_run_ios_sim_name_ws
+mcp__XcodeBuildMCP__screenshot
+mcp__XcodeBuildMCP__tap "Record Button"
+mcp__XcodeBuildMCP__type_text "Test input"
+mcp__XcodeBuildMCP__launch_app_logs_sim
+```
+
+**🔄 CLI Approach (Fallback):**
+```bash
+# Manual CLI workflow - more complex and error-prone
+tuist run App
+xcrun simctl io D4724415-45BD-43FE-A1CC-2C5573C82EFE screenshot test.png
+# Manual simulator interaction required
+xcrun simctl spawn D4724415-45BD-43FE-A1CC-2C5573C82EFE log show --last 30s
+```
+
+**Decision Tree:**
+1. **Does MCP XcodeBuildMCP have the functionality?** → Use MCP tool
+2. **Need specific CLI-only feature?** → Use CLI tool
+3. **Debugging or learning?** → CLI tool acceptable
+4. **Production workflow?** → Prefer MCP tools for reliability
+
+
  # Critical Swift Testing Infrastructure Guidelines
 
   ## MANDATORY: Prevent Namespace Conflicts & Test Hangs
