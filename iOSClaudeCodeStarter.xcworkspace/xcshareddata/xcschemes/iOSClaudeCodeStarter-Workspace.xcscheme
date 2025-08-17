@@ -24,20 +24,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0074D8FD74049CC6CF00C5DF"
-               BuildableName = "App.app"
-               BlueprintName = "App"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "7CB5E98E45FAAF594F8A0F1E"
                BuildableName = "CasePaths.framework"
                BlueprintName = "CasePaths"
@@ -178,20 +164,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3573670957C2BE4ED923C451"
-               BuildableName = "CoreKitTests.xctest"
-               BlueprintName = "CoreKitTests"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "5D71332DAEA508F122BB62C1"
                BuildableName = "CustomDump.framework"
                BlueprintName = "CustomDump"
@@ -251,34 +223,6 @@
                BlueprintIdentifier = "F4462743E5E22FB95ABE320F"
                BuildableName = "libDesignSystem.a"
                BlueprintName = "DesignSystem"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3C2C331747506C43A478F4D2"
-               BuildableName = "libDesignSystemTesting.a"
-               BlueprintName = "DesignSystemTesting"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7048C4BDB9F9CF72C1545DE9"
-               BuildableName = "DesignSystemTests.xctest"
-               BlueprintName = "DesignSystemTests"
                ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -434,20 +378,6 @@
                BuildableName = "PerceptionMacros"
                BlueprintName = "PerceptionMacros"
                ReferencedContainer = "container:Tuist/.build/tuist-derived/swift-perception/swift-perception.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8B45EB228585B87661B3899F"
-               BuildableName = "libSharedTestSupport.a"
-               BlueprintName = "SharedTestSupport"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -827,28 +757,6 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3573670957C2BE4ED923C451"
-               BuildableName = "CoreKitTests.xctest"
-               BlueprintName = "CoreKitTests"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7048C4BDB9F9CF72C1545DE9"
-               BuildableName = "DesignSystemTests.xctest"
-               BlueprintName = "DesignSystemTests"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D7577568F5043229BFD5D49"
                BuildableName = "FeaturesTests.xctest"
                BlueprintName = "FeaturesTests"
@@ -867,16 +775,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0074D8FD74049CC6CF00C5DF"
-            BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
+            BlueprintIdentifier = "7CB5E98E45FAAF594F8A0F1E"
+            BuildableName = "CasePaths.framework"
+            BlueprintName = "CasePaths"
+            ReferencedContainer = "container:Tuist/.build/tuist-derived/swift-case-paths/swift-case-paths.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -884,16 +791,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0074D8FD74049CC6CF00C5DF"
-            BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
+            BlueprintIdentifier = "7CB5E98E45FAAF594F8A0F1E"
+            BuildableName = "CasePaths.framework"
+            BlueprintName = "CasePaths"
+            ReferencedContainer = "container:Tuist/.build/tuist-derived/swift-case-paths/swift-case-paths.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

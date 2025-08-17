@@ -6,20 +6,6 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0074D8FD74049CC6CF00C5DF"
-               BuildableName = "App.app"
-               BlueprintName = "App"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -39,28 +25,6 @@
                ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3573670957C2BE4ED923C451"
-               BuildableName = "CoreKitTests.xctest"
-               BlueprintName = "CoreKitTests"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7048C4BDB9F9CF72C1545DE9"
-               BuildableName = "DesignSystemTests.xctest"
-               BlueprintName = "DesignSystemTests"
-               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -73,39 +37,5 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0074D8FD74049CC6CF00C5DF"
-            BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
-   <ProfileAction
-      buildConfiguration = "Release"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = ""
-      useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0074D8FD74049CC6CF00C5DF"
-            BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
-   </ProfileAction>
-   <AnalyzeAction
-      buildConfiguration = "Debug">
-   </AnalyzeAction>
-   <ArchiveAction
-      buildConfiguration = "Release"
-      revealArchiveInOrganizer = "YES">
-   </ArchiveAction>
 </Scheme>
