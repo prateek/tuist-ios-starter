@@ -40,10 +40,10 @@ jobs:
     
     env:
       HOMEBREW_NO_AUTO_UPDATE: 1
-      # Set CI=1 to skip Tuist authentication in non-interactive environments
-      # See: https://github.com/tuist/tuist/blob/main/docs/docs/en/guides/server/authentication.md
-      # This prevents "Token for Tuist was not found" errors during tuist generate
-      CI: 1
+      # Disable Tuist analytics/telemetry to prevent authentication errors in CI
+      # Source: https://github.com/tuist/tuist/blob/main/cli/Sources/TuistSupport/Utils/Environment.swift#L155-159
+      # This prevents "Failed to upload run metadata: notAuthenticated" errors
+      TUIST_CONFIG_STATS_OPT_OUT: 1
     
     steps:
     - name: Checkout
