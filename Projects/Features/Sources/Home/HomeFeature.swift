@@ -80,14 +80,14 @@ public struct HomeView: View {
     public var body: some View {
         Group {
             if store.isLoading && store.posts.isEmpty {
-                LoadingView(message: "Loading posts...")
+                LoadingView(message: LocalizedStrings.Loading.posts)
             } else if let error = store.error, store.posts.isEmpty {
                 errorView(error)
             } else {
                 postsListView
             }
         }
-        .navigationTitle("Home")
+        .navigationTitle(LocalizedStrings.Navigation.home)
         .task {
             store.send(.onAppear)
         }
@@ -103,7 +103,7 @@ public struct HomeView: View {
                 HStack {
                     ProgressView()
                         .scaleEffect(0.8)
-                    Text("Refreshing...")
+                    Text(LocalizedStrings.Loading.refreshing)
                         .body(.medium)
                         .foregroundColor(.textSecondary)
                     Spacer()
@@ -126,7 +126,7 @@ public struct HomeView: View {
                 .font(.system(size: 48))
                 .foregroundColor(.destructive)
             
-            Text("Something went wrong")
+            Text(LocalizedStrings.Error.somethingWentWrong)
                 .heading(.medium)
             
             Text(error)
@@ -134,7 +134,7 @@ public struct HomeView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(.textSecondary)
             
-            PrimaryButton("Try Again") {
+            PrimaryButton(LocalizedStrings.Common.retry) {
                 store.send(.refreshButtonTapped)
             }
             .padding(.horizontal, .spacingXL)

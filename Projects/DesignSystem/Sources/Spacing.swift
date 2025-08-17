@@ -4,24 +4,36 @@
 import SwiftUI
 
 public enum Spacing {
-    /// 4pt
+    /// 2pt - Minimal spacing
+    case xxs
+    /// 4pt - Very tight spacing
     case extraSmall
-    /// 8pt
+    /// 6pt - Intermediate tight spacing
+    case smallMedium
+    /// 8pt - Standard small spacing
     case small
-    /// 16pt
+    /// 12pt - Intermediate medium spacing
+    case mediumSmall
+    /// 16pt - Standard medium spacing
     case medium
-    /// 24pt
+    /// 20pt - Intermediate large spacing
+    case mediumLarge
+    /// 24pt - Standard large spacing
     case large
-    /// 32pt
+    /// 32pt - Extra large spacing
     case extraLarge
-    /// 48pt
+    /// 48pt - Maximum spacing
     case xxl
     
     public var value: CGFloat {
         switch self {
+        case .xxs: return 2
         case .extraSmall: return 4
+        case .smallMedium: return 6
         case .small: return 8
+        case .mediumSmall: return 12
         case .medium: return 16
+        case .mediumLarge: return 20
         case .large: return 24
         case .extraLarge: return 32
         case .xxl: return 48
@@ -30,9 +42,13 @@ public enum Spacing {
 }
 
 public extension CGFloat {
+    static let spacingXXS = Spacing.xxs.value
     static let spacingXS = Spacing.extraSmall.value
+    static let spacingSM = Spacing.smallMedium.value
     static let spacingS = Spacing.small.value
+    static let spacingMS = Spacing.mediumSmall.value
     static let spacingM = Spacing.medium.value
+    static let spacingML = Spacing.mediumLarge.value
     static let spacingL = Spacing.large.value
     static let spacingXL = Spacing.extraLarge.value
     static let spacingXXL = Spacing.xxl.value

@@ -56,13 +56,28 @@ public enum BodyStyle {
 }
 
 // MARK: - View Modifiers
+private struct TextStyleModifier: ViewModifier {
+    let font: Font
+    let color: Color
+    
+    init(font: Font, color: Color = .textPrimary) {
+        self.font = font
+        self.color = color
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .font(font)
+            .foregroundColor(color)
+    }
+}
+
 private struct HeadingModifier: ViewModifier {
     let level: HeadingLevel
     
     func body(content: Content) -> some View {
         content
-            .font(level.font)
-            .foregroundColor(.textPrimary)
+            .modifier(TextStyleModifier(font: level.font))
     }
 }
 
@@ -71,8 +86,7 @@ private struct BodyModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .font(style.font)
-            .foregroundColor(.textPrimary)
+            .modifier(TextStyleModifier(font: style.font))
     }
 }
 

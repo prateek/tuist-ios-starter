@@ -9,11 +9,7 @@ public extension NetworkClient {
     static let mockSuccess = NetworkClient(
         fetchPosts: {
             try await Task.sleep(nanoseconds: 10_000_000) // 10ms delay for realistic testing
-            return [
-                Post(id: 1, title: "Mock Post 1", body: "This is a mock post for testing.", userId: 1),
-                Post(id: 2, title: "Mock Post 2", body: "Another mock post with different content.", userId: 1),
-                Post(id: 3, title: "Mock Post 3", body: "Third mock post for comprehensive testing.", userId: 1)
-            ]
+            return TestData.samplePosts
         }
     )
     

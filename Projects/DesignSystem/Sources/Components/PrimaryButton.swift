@@ -33,9 +33,9 @@ public struct PrimaryButton: View {
             .padding(.vertical, .spacingS)
             .padding(.horizontal, .spacingM)
             .background(backgroundColor)
-            .cornerRadius(8)
+            .cornerRadius(.medium)
             .overlay(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: CGFloat.CornerRadius.medium)
                     .stroke(borderColor, lineWidth: style == .outlined ? 1 : 0)
             )
         }

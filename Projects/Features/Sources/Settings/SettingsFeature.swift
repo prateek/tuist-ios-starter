@@ -67,28 +67,28 @@ public struct SettingsFeature {
             case .saveButtonTapped:
                 // In a real app, this would save to UserDefaults or server
                 state.alert = AlertState {
-                    TextState("Settings Saved")
+                    TextState(LocalizedStrings.Settings.settingsSaved)
                 } actions: {
                     ButtonState {
-                        TextState("OK")
+                        TextState(LocalizedStrings.Common.ok)
                     }
                 } message: {
-                    TextState("Your settings have been saved successfully.")
+                    TextState(LocalizedStrings.Settings.settingsSavedMessage)
                 }
                 return .none
                 
             case .resetButtonTapped:
                 state.alert = AlertState {
-                    TextState("Reset Settings")
+                    TextState(LocalizedStrings.Settings.resetSettings)
                 } actions: {
                     ButtonState(action: .confirmReset) {
-                        TextState("Reset")
+                        TextState(LocalizedStrings.Common.reset)
                     }
                     ButtonState(role: .cancel) {
-                        TextState("Cancel")
+                        TextState(LocalizedStrings.Common.cancel)
                     }
                 } message: {
-                    TextState("Are you sure you want to reset all settings to their default values?")
+                    TextState(LocalizedStrings.Settings.resetConfirmation)
                 }
                 return .none
                 
@@ -117,24 +117,24 @@ public struct SettingsView: View {
         Form {
             Section {
                 HStack {
-                    Text("Username")
+                    Text(LocalizedStrings.Settings.username)
                         .body(.medium)
-                    TextField("Enter username", text: $store.username)
+                    TextField(LocalizedStrings.Settings.enterUsername, text: $store.username)
                         .textFieldStyle(.roundedBorder)
                 }
             } header: {
-                Text("Profile")
+                Text(LocalizedStrings.Settings.profile)
             }
             
             Section {
-                Toggle("Push Notifications", isOn: $store.notificationsEnabled)
+                Toggle(LocalizedStrings.Settings.pushNotifications, isOn: $store.notificationsEnabled)
                     .body(.medium)
                 
                 HStack {
-                    Text("Theme")
+                    Text(LocalizedStrings.Settings.theme)
                         .body(.medium)
                     Spacer()
-                    Picker("Theme", selection: $store.selectedTheme) {
+                    Picker(LocalizedStrings.Settings.theme, selection: $store.selectedTheme) {
                         ForEach(SettingsFeature.Theme.allCases, id: \.self) { theme in
                             Text(theme.rawValue).tag(theme)
                         }
@@ -142,20 +142,20 @@ public struct SettingsView: View {
                     .pickerStyle(.menu)
                 }
             } header: {
-                Text("Preferences")
+                Text(LocalizedStrings.Settings.preferences)
             }
             
             Section {
-                PrimaryButton("Save Settings") {
+                PrimaryButton(LocalizedStrings.Settings.saveSettings) {
                     store.send(.saveButtonTapped)
                 }
                 
-                PrimaryButton("Reset to Defaults", style: .outlined) {
+                PrimaryButton(LocalizedStrings.Settings.resetToDefaults, style: .outlined) {
                     store.send(.resetButtonTapped)
                 }
             }
         }
-        .navigationTitle("Settings")
+        .navigationTitle(LocalizedStrings.Settings.title)
         .alert(store: store.scope(state: \.$alert, action: \.alert))
     }
 }

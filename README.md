@@ -30,11 +30,12 @@ cd YourAppName
 ./Scripts/setup.sh
 ```
 
-### Open and Run
+### Generate and Run
 ```bash
-open App.xcworkspace
+make generate    # Generate Xcode project
+make run        # Build and run in iPhone 16 simulator
 ```
-Build and run with `⌘+R` - you're ready to develop!
+Or open manually: `open iOSClaudeCodeStarter.xcworkspace` and build with `⌘+R`
 
 ## 📋 What's Included
 
@@ -89,23 +90,76 @@ The `CLAUDE.md` file contains essential guidelines for:
 
 ## 🛠 Development Commands
 
+### **Essential Commands**
 ```bash
-# Development
-make setup          # Initial project setup
-make test           # Run tests
-make lint           # Run SwiftLint
-make format         # Format code with SwiftFormat
+# Quick Start
+make setup              # Initial project setup
+make generate          # Generate Xcode project
+make run               # Build and run app in iPhone 16 simulator
 
-# Tuist
-make generate       # Generate Xcode project
-make tuist-clean    # Clean and regenerate project
-make clean          # Clean build artifacts
+# Development Cycle  
+make build             # Build app (Tuist)
+make test              # Run all tests 
+make lint              # Run SwiftLint
+make format            # Format code with SwiftFormat
+```
 
-# Network & Debugging
-make debug-local       # Run with local data (no network)
-make clean-simulators  # Reset iOS Simulators (fixes network issues)
-make reset-network     # Reset network configuration
-make diagnose-network  # Diagnose connectivity issues
+### **Building & Running**
+```bash
+# Tuist Commands (Recommended - Now Working!)
+tuist build App        # Fast, cached building
+tuist run App          # Build and run in simulator
+make build             # Same as tuist build App
+make run               # Same as tuist run App
+
+# Manual Commands (Explicit iPhone 16 Control)
+make build-xcode       # Build with explicit iPhone 16 targeting
+make run-manual        # Build + install + launch in iPhone 16 specifically
+```
+
+### **Testing**
+```bash
+# All Tests
+make test              # Run all tests (Tuist)
+tuist test             # Direct Tuist command
+
+# Specific Modules
+make test-features     # Features module only
+make test-corekit      # CoreKit module only
+tuist test --test-targets FeaturesTests    # Alternative syntax
+
+# Manual Testing (iPhone 16 targeting)
+make test-xcode        # Avoids iPad simulator selection
+```
+
+### **Simulator Management**
+```bash
+# iPhone Simulators (Fixes iPad Selection Issue)
+make list-simulators   # List available iPhone simulators
+make boot-iphone      # Boot iPhone 16 simulator
+make reset-iphone     # Reset iPhone 16 data only
+
+# All Simulators
+make clean-simulators # Reset ALL simulators (network fix)
+xcrun simctl list devices iPhone    # List iPhone simulators
+xcrun simctl boot "iPhone 16"       # Boot specific simulator
+```
+
+### **Debugging & Troubleshooting**
+```bash
+# Network Issues
+make debug-local       # Use local data (no API calls)
+make diagnose-network  # Check connectivity
+make reset-network     # Reset DNS/network cache
+
+# Build Issues  
+make clean            # Clean build artifacts
+make tuist-clean      # Full Tuist cache clean + regenerate
+tuist clean && tuist generate  # Manual clean workflow
+
+# Simulator Issues
+make reset-iphone     # Reset iPhone 16 simulator
+make clean-simulators # Reset all simulators (network fixes)
 ```
 
 ## 📚 Architecture Overview
@@ -143,15 +197,24 @@ struct FeatureName {
 
 ### Running Tests
 ```bash
-make test
-# or
-xcodebuild test -workspace App.xcworkspace -scheme App
+# Recommended (Tuist)
+make test              # Run all tests
+tuist test             # Direct Tuist command
+
+# Manual (iPhone 16 targeting)
+make test-xcode        # Explicit iPhone simulator targeting
+xcodebuild test -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -destination 'platform=iOS Simulator,name=iPhone 16'
+
+# Specific Modules
+make test-features     # Features module only
+make test-corekit      # CoreKit module only
 ```
 
 ### Test Structure
-- **Feature Tests**: `Projects/Features/Tests/`
-- **Core Tests**: `Projects/CoreKit/Tests/`
-- **Test Support**: `Projects/SharedTestSupport/`
+- **Feature Tests**: `Projects/Features/Tests/` - TCA reducer and view tests
+- **Core Tests**: `Projects/CoreKit/Tests/` - Business logic and networking tests
+- **Design Tests**: `Projects/DesignSystem/Tests/` - UI component tests  
+- **Test Support**: `Projects/*/Testing/` - Mocks, fixtures, and test utilities
 
 ### Example Test Pattern
 ```swift
@@ -195,32 +258,68 @@ Common issues:
 - **Simulator Network**: Reset with `make clean-simulators`
 - **DNS Issues**: Use `make reset-network`
 
+### **Why Does Testing Open iPad Simulator?**
+
+**Issue**: `tuist test` opens an iPad simulator instead of iPhone.
+
+**Explanation**: Tuist auto-selects the first available simulator, which is often an iPad due to alphabetical ordering.
+
+**Solutions**:
+```bash
+# Use explicit iPhone targeting
+make test-xcode        # Forces iPhone 16 simulator
+
+# Or use specific simulator commands
+make boot-iphone      # Boot iPhone 16 first
+tuist test            # Then run tests
+
+# Check what simulators are available
+make list-simulators  # See all iPhone simulators
+```
+
 ## 🎨 Design System
 
 ### Colors
 ```swift
 .foregroundColor(.textPrimary)
-.backgroundColor(.backgroundPrimary)
+.backgroundColor(.backgroundPrimary)  
 .accentColor(.buttonPrimary)
 ```
 
 ### Typography
 ```swift
-.heading(.large)
-.body(.medium)
-.font(.buttonText)
+.heading(.large)        // Major headings
+.heading(.medium)       // Section headers
+.body(.medium)          // Body text
+.font(.buttonText)      // Button labels
 ```
 
-### Spacing
+### Spacing & Layout
 ```swift
-.padding(.spacingM)      // 16pt
-.padding(.paddingL)      // 24pt all sides
+.padding(.spacingS)     // 8pt
+.padding(.spacingM)     // 16pt  
+.padding(.spacingL)     // 24pt
+.padding(.paddingM)     // EdgeInsets with 16pt all around
+
+// New intermediate values
+.padding(.spacingXS)    // 4pt - tight spacing
+.padding(.spacingMS)    // 12pt - between small and medium
+.padding(.spacingXL)    // 32pt - large spacing
+```
+
+### Corner Radius (New!)
+```swift
+.cornerRadius(.small)     // 4pt - badges, small elements
+.cornerRadius(.medium)    // 8pt - buttons, cards  
+.cornerRadius(.large)     // 12pt - larger components
+.cornerRadius(.extraLarge) // 16pt - modals, containers
 ```
 
 ### Components
-- `PrimaryButton`: Consistent button styling
+- `PrimaryButton`: Consistent button styling with design tokens
 - `LoadingView`: Loading states with accessibility
-- Color and typography tokens
+- `LocalizedStrings`: Centralized string management for i18n readiness
+- Complete design token system for consistency
 
 ## 🔧 Customization
 
@@ -249,12 +348,30 @@ Common issues:
 - **macOS Sonoma+**
 - **Swift 5.9+**
 
+## 🚀 CI/CD
+
+### GitHub Actions
+The project includes production-ready CI/CD workflows:
+
+- **Code Quality**: SwiftLint + SwiftFormat validation
+- **Build & Test**: Full Tuist pipeline with iPhone 16 targeting  
+- **Dependabot**: Automatic dependency updates
+
+### Local CI Testing
+```bash
+make lint     # Test code quality locally
+make format   # Format code for CI
+make build    # Same build as CI uses
+make test-xcode  # Same test targeting as CI
+```
+
 ## 🤝 Contributing
 
 1. Follow the patterns established in `CLAUDE.md`
 2. Add tests for new features
-3. Update documentation for significant changes
-4. Use the provided linting and formatting tools
+3. Run `make lint` and `make format` before committing
+4. Update documentation for significant changes
+5. CI will validate your changes automatically
 
 ## 📄 License
 

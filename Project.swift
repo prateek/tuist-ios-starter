@@ -105,6 +105,7 @@ let project = Project(
             dependencies: [
                 .target(name: "Features"),
                 .target(name: "FeaturesTesting"),
+                .target(name: "DesignSystem"),
                 .external(name: "ComposableArchitecture"),
             ]
         ),
@@ -139,5 +140,15 @@ let project = Project(
                 .external(name: "ComposableArchitecture"),
             ]
         ),
+    ],
+    schemes: [
+        // App scheme for building and running the main app
+        .scheme(
+            name: "App",
+            shared: true,
+            buildAction: .buildAction(targets: ["App"]),
+            testAction: TestAction.targets(["FeaturesTests", "CoreKitTests", "DesignSystemTests"]),
+            runAction: .runAction(configuration: "Debug")
+        )
     ]
 )

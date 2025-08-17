@@ -29,9 +29,9 @@ public struct LoadingView: View {
     
     private var accessibilityMessage: String {
         if let message = message {
-            return "Loading. \(message)"
+            return LocalizedStrings.Accessibility.loadingWithMessage.formatted(with: message)
         } else {
-            return "Loading"
+            return LocalizedStrings.Common.loading
         }
     }
 }

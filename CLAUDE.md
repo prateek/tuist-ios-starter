@@ -254,6 +254,146 @@ tuist test --test-targets CoreKitTests  # Run specific module
 tuist test --no-binary-cache           # Force clean test run
 ```
 
+## 🚀 Essential Development Commands
+
+### **Quick Setup**
+```bash
+make setup              # Initial project setup
+make generate          # Generate Xcode project  
+make help              # See all available commands
+```
+
+### **Building the App**
+```bash
+# Preferred Tuist commands (now working!)
+tuist build App                    # Build using Tuist (fast, cached)
+make build                         # Same as above
+
+# Manual xcodebuild (when you need explicit control)
+make build-xcode                   # Build with explicit iPhone 16 targeting
+xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme App -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' build
+```
+
+### **Running the App**
+```bash
+# Preferred Tuist method (now working!)
+tuist run App                     # Build + run in simulator (Tuist chooses simulator)
+make run                          # Same as above
+
+# Manual workflow with explicit iPhone targeting
+make boot-iphone                  # Boot iPhone 16 simulator first
+make build                        # Build the app with Tuist
+make run-manual                   # Install and launch in iPhone 16 specifically
+
+# Individual simulator commands
+xcrun simctl boot "iPhone 16"     # Boot iPhone 16 simulator
+xcrun simctl install "iPhone 16" /path/to/App.app  # Install app
+xcrun simctl launch "iPhone 16" com.claudecode.starter.app  # Launch app
+```
+
+### **Testing**
+```bash
+# All tests
+make test                         # Run all tests (uses Tuist)
+tuist test                        # Same as above (direct command)
+
+# Specific modules  
+make test-features               # Run Features module tests only
+make test-corekit               # Run CoreKit module tests only
+tuist test --test-targets CoreKitTests    # Alternative syntax
+
+# Manual testing (explicit iPhone targeting)
+make test-xcode                  # Run tests with xcodebuild on iPhone 16
+```
+
+### **Simulator Management**
+```bash
+# iPhone-specific commands (fixes iPad selection issue)
+make list-simulators            # List all iPhone simulators
+make boot-iphone               # Boot iPhone 16 simulator
+make reset-iphone              # Reset iPhone 16 data only
+
+# General simulator commands
+make clean-simulators          # Reset ALL simulators (nuclear option)
+xcrun simctl list devices      # List all available simulators
+xcrun simctl boot "iPhone 16"  # Boot specific simulator
+```
+
+### **Debugging & Troubleshooting**
+```bash
+# Network debugging
+make debug-local               # Build with local data (no API calls)
+make diagnose-network         # Check network connectivity  
+make reset-network           # Reset DNS/network cache
+
+# Project debugging
+make tuist-clean             # Clean Tuist cache + regenerate
+make clean                   # Clean build artifacts
+tuist clean && tuist generate  # Full clean regeneration
+```
+
+### **Code Quality**
+```bash
+make lint                    # Run SwiftLint
+make format                  # Run SwiftFormat  
+swiftlint --fix             # Auto-fix SwiftLint issues
+```
+
+### **Environment Variables**
+```bash
+# Local development modes
+DEBUG_LOCAL_DATA=1 make build      # Use bundled JSON data
+API_BASE_URL=localhost:3000 make build  # Point to local API server
+```
+
+## 🔧 Troubleshooting Common Issues
+
+### **"Tests open iPad simulator"**
+- **Issue**: Tuist auto-selects first available simulator (often iPad)
+- **Solution**: Use `make test-xcode` for explicit iPhone 16 targeting
+- **Alternative**: `tuist test` with specific destination (requires Tuist config)
+
+### **Network Errors in Simulator**
+```bash
+make diagnose-network       # Check connectivity first
+make clean-simulators      # Reset simulators (fixes 90% of issues)
+make debug-local           # Use offline mode as fallback
+```
+
+### **Build Failures**
+```bash
+make clean                 # Clean build artifacts
+make tuist-clean          # Full Tuist regeneration
+make generate             # Regenerate Xcode project
+```
+
+## 🚀 CI/CD & GitHub Actions
+
+### **GitHub Actions Workflows**
+The project includes modern CI/CD workflows in `.github/workflows/`:
+
+- **Code Quality Job**: SwiftLint + SwiftFormat validation
+- **Build & Test Job**: Full Tuist build + test pipeline with iPhone 16 targeting
+- **Dependabot**: Automatic dependency updates for Swift packages and GitHub Actions
+
+### **CI Commands Used**
+```bash
+# CI builds use these exact commands
+tuist install              # Install dependencies
+tuist generate --no-open   # Generate project
+tuist build App           # Build with caching
+xcodebuild test -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -destination 'platform=iOS Simulator,name=iPhone 16'
+```
+
+### **Local CI Testing**
+```bash
+# Test CI commands locally
+make lint                 # Same as CI code quality check
+make format               # Format code like CI expects
+make build                # Same build command as CI
+make test-xcode           # Same test targeting as CI
+```
+
 ### **UI Tests**
 - Use SwiftUI previews for visual testing
 - Leverage DesignSystemTesting utilities for consistent preview data

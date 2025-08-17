@@ -15,3 +15,13 @@
   - Test device builds after code signing is configured
   - Verify preview links work for both simulator and device installation
   - Document troubleshooting steps for common signing issues
+
+## Localization & Internationalization
+
+- [ ] **Implement proper localization infrastructure**
+  - Replace `LocalizedStrings` static strings with actual `NSLocalizedString` calls
+  - Create `.strings` files for supported languages (starting with English base)
+  - Add proper locale handling in `String.formatted` helper method
+  - Consider renaming `LocalizedStrings` to `StaticStrings` until full i18n is implemented
+  - Add localization TODO comments where strings should be translated
+  - Test localization workflow with pseudo-localization or test language

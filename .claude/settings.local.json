@@ -52,7 +52,13 @@
       "WebFetch(domain:github.com)",
       "mcp__zen__consensus",
       "Bash(swiftlint:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "mcp__zen__analyze",
+      "mcp__zen__refactor",
+      "Bash(make:*)",
+      "Bash(find:*)",
+      "Bash(touch:*)",
+      "mcp__zen__precommit"
     ]
   },
   "enableAllProjectMcpServers": true,

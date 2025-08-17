@@ -4,6 +4,7 @@
 import ComposableArchitecture
 import CoreKit
 import CoreKitTesting
+import DesignSystem
 import FeaturesTesting
 import XCTest
 @testable import Features

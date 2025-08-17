@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, master]
   pull_request:
-    branches: [ main ]
+    branches: [main, master]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,15 +12,15 @@ concurrency:
 
 jobs:
   lint-and-format:
-    name: Lint and Format Check
-    runs-on: macos-14
+    name: Code Quality
+    runs-on: macos-15
     
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_15.4.app/Contents/Developer
+      run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
       
     - name: Install SwiftLint
       run: brew install swiftlint
@@ -34,33 +34,48 @@ jobs:
     - name: SwiftFormat Check
       run: swiftformat --lint .
 
-  tuist-generation:
-    name: Tuist Generation Check
-    runs-on: macos-14
+  build-and-test:
+    name: Build & Test
+    runs-on: macos-15
     
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_15.4.app/Contents/Developer
-      
-    - name: Cache Tuist
-      uses: actions/cache@v4
-      with:
-        path: ~/.tuist
-        key: tuist-${{ runner.os }}-${{ hashFiles('**/Project.swift', '**/Workspace.swift', 'Tuist/**') }}
-        restore-keys: |
-          tuist-${{ runner.os }}-
+      run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
       
     - name: Install Tuist
-      run: curl -Ls https://install.tuist.io | bash
+      run: |
+        brew install --formula tuist
+        tuist --version
+        
+    - name: Cache Tuist dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          Tuist/.build
+          ~/.cache/tuist
+        key: ${{ runner.os }}-tuist-${{ hashFiles('Tuist/Package.swift', 'Tuist/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-tuist-
       
-    - name: Tuist Install
+    - name: Install dependencies
       run: tuist install
       
-    - name: Tuist Generate
-      run: tuist generate
+    - name: Generate Xcode project
+      run: tuist generate --no-open
+      
+    - name: Build app with Tuist
+      run: tuist build App
+      
+    - name: Run tests (iPhone 15 targeting)
+      run: |
+        xcodebuild test \
+          -workspace iOSClaudeCodeStarter.xcworkspace \
+          -scheme App \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          -resultBundlePath test-results.xcresult
       
     - name: Check for uncommitted changes
       run: |
@@ -73,52 +88,9 @@ jobs:
           echo "✅ No uncommitted changes detected."
         fi
 
-  test:
-    name: Test
-    runs-on: macos-14
-    
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_15.4.app/Contents/Developer
-      
-    - name: Cache Tuist
-      uses: actions/cache@v4
-      with:
-        path: ~/.tuist
-        key: tuist-${{ runner.os }}-${{ hashFiles('**/Project.swift', '**/Workspace.swift', 'Tuist/**') }}
-        restore-keys: |
-          tuist-${{ runner.os }}-
-      
-    - name: Install Tuist
-      run: curl -Ls https://install.tuist.io | bash
-      
-    - name: Tuist Install
-      run: tuist install
-      
-    - name: Tuist Generate
-      run: tuist generate
-      
-    - name: Build
-      run: |
-        xcodebuild build \
-          -workspace App.xcworkspace \
-          -scheme App \
-          -destination 'platform=iOS Simulator,name=iPhone 15'
-      
-    - name: Test
-      run: |
-        xcodebuild test \
-          -workspace App.xcworkspace \
-          -scheme App \
-          -destination 'platform=iOS Simulator,name=iPhone 15' \
-          -resultBundlePath TestResults.xcresult
-      
     - name: Upload test results
       uses: actions/upload-artifact@v4
-      if: failure()
+      if: always()
       with:
         name: test-results
-        path: TestResults.xcresult
+        path: test-results.xcresult

@@ -2,6 +2,7 @@
 // ABOUTME: Shows how to test user interactions, binding actions, and presentation state
 
 import ComposableArchitecture
+import DesignSystem
 import XCTest
 @testable import Features
 

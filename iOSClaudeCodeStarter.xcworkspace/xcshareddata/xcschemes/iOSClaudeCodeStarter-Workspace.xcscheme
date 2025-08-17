@@ -276,6 +276,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7048C4BDB9F9CF72C1545DE9"
+               BuildableName = "DesignSystemTests.xctest"
+               BlueprintName = "DesignSystemTests"
+               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "EB7ACF547727AFDE4660D563"
                BuildableName = "libFeatures.a"
                BlueprintName = "Features"
@@ -816,6 +830,17 @@
                BlueprintIdentifier = "3573670957C2BE4ED923C451"
                BuildableName = "CoreKitTests.xctest"
                BlueprintName = "CoreKitTests"
+               ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7048C4BDB9F9CF72C1545DE9"
+               BuildableName = "DesignSystemTests.xctest"
+               BlueprintName = "DesignSystemTests"
                ReferencedContainer = "container:iOSClaudeCodeStarter.xcodeproj">
             </BuildableReference>
          </TestableReference>
