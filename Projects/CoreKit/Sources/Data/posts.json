@@ -1,0 +1,62 @@
+[
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "Welcome to the Claude Code iOS Starter!",
+    "body": "This is a demo post showing how the app works with local data. The app can seamlessly switch between network data and local fallback data for reliable development and testing."
+  },
+  {
+    "userId": 1,
+    "id": 2,
+    "title": "Building with The Composable Architecture",
+    "body": "This starter template demonstrates modern iOS development patterns using TCA for state management, SwiftUI for UI, and Tuist for project organization."
+  },
+  {
+    "userId": 1,
+    "id": 3,
+    "title": "Modular Architecture Example",
+    "body": "The codebase is organized into distinct modules: Features for app logic, CoreKit for business logic, and DesignSystem for UI components. This promotes reusability and maintainability."
+  },
+  {
+    "userId": 2,
+    "id": 4,
+    "title": "Network Resilience Patterns",
+    "body": "The app demonstrates proper error handling, retry logic, and fallback mechanisms. This ensures a great user experience even when network conditions are poor."
+  },
+  {
+    "userId": 2,
+    "id": 5,
+    "title": "Accessibility First Design",
+    "body": "All UI components include proper accessibility labels and traits, ensuring the app works well with VoiceOver and other assistive technologies."
+  },
+  {
+    "userId": 2,
+    "id": 6,
+    "title": "Testing with TCA",
+    "body": "The template includes comprehensive test examples using TestStore, showing how to test reducers, effects, and state transitions in TCA applications."
+  },
+  {
+    "userId": 3,
+    "id": 7,
+    "title": "Modern Swift Patterns",
+    "body": "The code demonstrates modern Swift features including async/await, actor isolation, and structured concurrency for robust app development."
+  },
+  {
+    "userId": 3,
+    "id": 8,
+    "title": "Dependency Injection",
+    "body": "Using TCA's Dependencies framework, the app shows how to properly inject dependencies for networking, persistence, and other services."
+  },
+  {
+    "userId": 3,
+    "id": 9,
+    "title": "Design System Integration",
+    "body": "The DesignSystem module provides consistent colors, typography, and spacing tokens used throughout the app for a cohesive visual experience."
+  },
+  {
+    "userId": 4,
+    "id": 10,
+    "title": "Ready for Production",
+    "body": "This starter template includes all the foundational pieces needed to build production-ready iOS applications: navigation, networking, error handling, testing, and documentation."
+  }
+]
