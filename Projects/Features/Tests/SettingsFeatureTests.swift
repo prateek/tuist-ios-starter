@@ -11,7 +11,7 @@ import XCTest
 final class SettingsFeatureTests: XCTestCase {
     
     func testNotificationsToggle() async {
-        let store = TestStore(initialState: SettingsFeature.State()) {
+        let store = await TestStore(initialState: SettingsFeature.State()) {
             SettingsFeature()
         }
         
@@ -25,7 +25,7 @@ final class SettingsFeatureTests: XCTestCase {
     }
     
     func testThemeChange() async {
-        let store = TestStore(initialState: SettingsFeature.State()) {
+        let store = await TestStore(initialState: SettingsFeature.State()) {
             SettingsFeature()
         }
         
@@ -39,7 +39,7 @@ final class SettingsFeatureTests: XCTestCase {
     }
     
     func testSaveButtonShowsAlert() async {
-        let store = TestStore(initialState: SettingsFeature.State()) {
+        let store = await TestStore(initialState: SettingsFeature.State()) {
             SettingsFeature()
         }
         
@@ -57,7 +57,7 @@ final class SettingsFeatureTests: XCTestCase {
     }
     
     func testResetConfirmation() async {
-        let store = TestStore(
+        let store = await TestStore(
             initialState: SettingsFeature.State(
                 notificationsEnabled: false,
                 selectedTheme: .dark,
@@ -91,7 +91,7 @@ final class SettingsFeatureTests: XCTestCase {
     }
     
     func testUsernameBinding() async {
-        let store = TestStore(initialState: SettingsFeature.State()) {
+        let store = await TestStore(initialState: SettingsFeature.State()) {
             SettingsFeature()
         }
         

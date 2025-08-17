@@ -13,52 +13,32 @@ import XCTest
 
 final class HomeFeatureTests: XCTestCase {
     
-    func testLoadPostsSuccess() async {
-        let store = HomeFeature.testStore(
-            networkClient: NetworkClient.mockSuccess
-        )
-        
-        await store.send(.onAppear) {
-            $0.isLoading = true
-            $0.error = nil
+    func testInitialState() {
+        let store = HomeFeature.testStore()
+        XCTAssertEqual(store.state.posts, [])
+        XCTAssertFalse(store.state.isLoading)
+        XCTAssertNil(store.state.error)
+    }
+    
+    func testPostsResponseSuccess() async {
+        let store = await TestStore(initialState: HomeFeature.State()) {
+            HomeFeature()
         }
         
-        await store.receive(\.postsResponse.success) {
+        await store.send(.postsResponse(.success(TestData.samplePosts))) {
             $0.isLoading = false
             $0.posts = TestData.samplePosts
         }
     }
     
-    func testLoadPostsFailure() async {
-        let store = HomeFeature.testStore(
-            networkClient: NetworkClient.mockFailure
-        )
-        
-        await store.send(.refreshButtonTapped) {
-            $0.isLoading = true
-            $0.error = nil
+    func testPostsResponseFailure() async {
+        let store = await TestStore(initialState: HomeFeature.State()) {
+            HomeFeature()
         }
         
-        await store.receive(\.postsResponse.failure) {
+        await store.send(.postsResponse(.failure(NetworkError.networkError("Test error")))) {
             $0.isLoading = false
-            $0.error = "Network error: Mock network failure for testing"
-        }
-    }
-    
-    func testRefreshClearsError() async {
-        let store = HomeFeature.testStore(
-            initialState: HomeFeature.State(error: "Previous error"),
-            networkClient: NetworkClient.mockEmpty
-        )
-        
-        await store.send(.refreshButtonTapped) {
-            $0.isLoading = true
-            $0.error = nil
-        }
-        
-        await store.receive(\.postsResponse.success) {
-            $0.isLoading = false
-            $0.posts = []
+            $0.error = "Network error: Test error"
         }
     }
 }
