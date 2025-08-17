@@ -52,7 +52,7 @@ jobs:
       run: |
         brew tap tuist/tuist
         brew install --formula tuist
-        tuist --version
+        tuist version
         
     - name: Cache Tuist dependencies
       uses: actions/cache@v4
