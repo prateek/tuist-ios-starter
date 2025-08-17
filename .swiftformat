@@ -7,11 +7,14 @@
 # Formatting rules
 --enable isEmpty
 --enable sortImports
---enable wrapMultilineStatementBraces
 --enable preferForLoop
 --enable preferKeyPath
 --enable redundantReturn
 --enable sortDeclarations
+
+# Disabled: conflicts with SwiftLint opening_brace rule and community standards
+# Community (Google, Airbnb) prefers K&R style with braces on same line
+--disable wrapMultilineStatementBraces
 
 # Indent using spaces
 --indent 4

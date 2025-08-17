@@ -28,11 +28,11 @@ jobs:
     - name: Install Tools
       run: brew install swiftlint swiftformat
       
-    - name: SwiftLint
-      run: swiftlint --strict
-      
-    - name: SwiftFormat Check
+    - name: SwiftFormat Check (formatting authority)
       run: swiftformat --lint .
+      
+    - name: SwiftLint Check (code quality only)
+      run: swiftlint --strict
 
   build-and-test:
     name: Build & Test

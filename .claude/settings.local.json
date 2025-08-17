@@ -74,7 +74,12 @@
       "WebFetch(domain:nektosact.com)",
       "mcp__github__list_workflow_runs",
       "mcp__github__get_job_logs",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "mcp__github__get_workflow_run",
+      "Bash(DO_NOT_TRACK=1 tuist generate --no-open)",
+      "mcp__github__search_code",
+      "mcp__github__get_file_contents",
+      "Bash(swiftformat:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -252,11 +252,13 @@ struct FeatureView: View {
 
 ### **Pre-Commit Quality Gates** 
 Every commit is automatically validated through pre-commit hooks that ensure:
-- ✅ **Code Formatting**: SwiftFormat auto-fixes style issues
-- ✅ **Code Quality**: SwiftLint enforces coding standards and TCA patterns
+- ✅ **Code Formatting**: SwiftFormat handles ALL formatting (braces, commas, spacing)
+- ✅ **Code Quality**: SwiftLint enforces coding standards and TCA patterns (no formatting)
 - ✅ **Build Success**: Project compiles without errors
 - ✅ **Test Passing**: All tests pass before commit
 - ✅ **File Safety**: ASCII filenames, no focused tests (fdescribe/fit)
+
+**Tool Separation**: SwiftFormat and SwiftLint have distinct, non-overlapping responsibilities to eliminate formatting conflicts.
 
 **Setup** (one-time per developer):
 ```bash
@@ -391,12 +393,24 @@ rm -rf ~/Library/Caches/tuist  # Nuclear option: delete all Tuist cache
 rm -rf .tuist                # Remove local cache directory
 ```
 
-### **Code Quality**
+### **Code Quality** (Tool Separation Strategy)
 ```bash
-make lint                    # Run SwiftLint
-make format                  # Run SwiftFormat  
-swiftlint --fix             # Auto-fix SwiftLint issues
+# SwiftFormat: Formatting authority (layout, braces, commas, spacing)
+make format                  # Format all code with SwiftFormat
+swiftformat .               # Direct SwiftFormat execution
+
+# SwiftLint: Code quality authority (complexity, naming, TCA patterns)  
+make lint                    # Check code quality with SwiftLint
+swiftlint --strict          # Direct SwiftLint execution (no --fix)
+
+# Combined workflow (recommended)
+make format-lint            # Format first, then quality check
 ```
+
+**Tool Responsibilities**:
+- **SwiftFormat**: ALL formatting (braces, commas, spacing, indentation)
+- **SwiftLint**: ONLY code quality (complexity, naming, architecture patterns)
+- **No Overlap**: Eliminates infinite formatting cycles
 
 ### **Environment Variables**
 ```bash
@@ -459,7 +473,7 @@ tuist generate                       # Full regeneration
 ### **GitHub Actions Workflows**
 The project includes modern CI/CD workflows in `.github/workflows/`:
 
-- **Code Quality Job**: SwiftLint + SwiftFormat validation
+- **Code Quality Job**: SwiftFormat (formatting) + SwiftLint (quality) validation with tool separation
 - **Build & Test Job**: Full Tuist build + test pipeline with iPhone 16 targeting
 - **Dependabot**: Automatic dependency updates for Swift packages and GitHub Actions
 

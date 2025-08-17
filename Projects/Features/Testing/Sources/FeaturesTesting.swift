@@ -12,8 +12,7 @@ public extension HomeFeature {
         initialState: State = State(),
         networkClient: NetworkClient = NetworkClient.testValue
     )
-        -> TestStore<State, Action>
-    {
+        -> TestStore<State, Action> {
         TestStore(initialState: initialState) {
             HomeFeature()
         } withDependencies: {
@@ -26,8 +25,7 @@ public extension SettingsFeature {
     static func testStore(
         initialState: State = State()
     )
-        -> TestStore<State, Action>
-    {
+        -> TestStore<State, Action> {
         TestStore(initialState: initialState) {
             SettingsFeature()
         }
@@ -38,8 +36,7 @@ public extension RootFeature {
     static func testStore(
         initialState: State = State()
     )
-        -> TestStore<State, Action>
-    {
+        -> TestStore<State, Action> {
         TestStore(initialState: initialState) {
             RootFeature()
         }

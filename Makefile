@@ -26,8 +26,9 @@ help:
 	@echo "  test-corekit - Run CoreKit module tests"
 	@echo ""
 	@echo "Code Quality:"
-	@echo "  lint         - Run SwiftLint"
-	@echo "  format       - Run SwiftFormat"
+	@echo "  format       - Format code (SwiftFormat authority)"
+	@echo "  lint         - Check code quality (SwiftLint authority)"
+	@echo "  format-lint  - Complete workflow: format then lint"
 	@echo ""
 	@echo "Simulators:"
 	@echo "  list-simulators  - List available iPhone simulators"
@@ -101,7 +102,7 @@ test-corekit: ## Run only CoreKit module tests
 	tuist test --test-targets CoreKitTests
 
 lint:
-	@echo "🔍 Running SwiftLint..."
+	@echo "🔍 Running SwiftLint (code quality only)..."
 	@if command -v swiftlint >/dev/null 2>&1; then \
 		swiftlint --strict; \
 	else \
@@ -109,12 +110,18 @@ lint:
 	fi
 
 format:
-	@echo "✨ Formatting code..."
+	@echo "✨ Formatting code (SwiftFormat authority)..."
 	@if command -v swiftformat >/dev/null 2>&1; then \
 		swiftformat .; \
 	else \
 		echo "⚠️  SwiftFormat not installed. Install with: brew install swiftformat"; \
 	fi
+
+# Combined format + lint in proper order (format first, then quality check)
+format-lint:
+	@echo "🎯 Running complete code quality workflow..."
+	@$(MAKE) format
+	@$(MAKE) lint
 
 # Tuist targets
 tuist-clean:

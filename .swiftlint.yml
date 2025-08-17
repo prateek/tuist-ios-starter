@@ -50,10 +50,14 @@ opt_in_rules:
   - vertical_whitespace_closing_braces
   - yoda_condition
 
-# Disabled rules
+# Disabled rules - Let SwiftFormat handle ALL formatting
 disabled_rules:
   - todo
-  - line_length # Let SwiftFormat handle this
+  - line_length        # SwiftFormat authority
+  - opening_brace      # SwiftFormat authority  
+  - trailing_comma     # SwiftFormat authority
+  - indentation_width  # SwiftFormat authority
+  - vertical_whitespace # SwiftFormat authority
 
 # Custom rule configurations
 file_length:

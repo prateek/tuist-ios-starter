@@ -9,8 +9,7 @@ public extension Target {
         resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
     )
-        -> Target
-    {
+        -> Target {
         .target(
             name: name,
             destinations: .iOS,
@@ -31,8 +30,7 @@ public extension Target {
         resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
     )
-        -> Target
-    {
+        -> Target {
         .target(
             name: name,
             destinations: .iOS,
@@ -52,8 +50,7 @@ public extension Target {
         resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
     )
-        -> Target
-    {
+        -> Target {
         .target(
             name: name,
             destinations: .iOS,
@@ -72,8 +69,7 @@ public extension Target {
         sources: SourceFilesList = ["Tests/**"],
         dependencies: [TargetDependency] = []
     )
-        -> Target
-    {
+        -> Target {
         .target(
             name: name,
             destinations: .iOS,

@@ -47,8 +47,7 @@ public extension NetworkClient {
         shouldFail: Bool = false,
         error: NetworkError = .unknown
     )
-        -> NetworkClient
-    {
+        -> NetworkClient {
         NetworkClient {
             if shouldFail {
                 throw error
