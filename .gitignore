@@ -1,0 +1,67 @@
+# Xcode
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcshareddata/IDEWorkspaceChecks.plist
+
+# Build artifacts
+/Derived/
+/build/
+/.build/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+/Packages/
+Package.pins
+Package.resolved
+
+# Tuist
+/Tuist/.build/
+Graph.json
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# SwiftLint
+.swiftlint.yml.cache
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+
+# OS generated files
+*~
+
+# Test results
+*.xcresult
+**/TestResults.xcresult
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Code coverage
+*.profdata
+*.profraw
+
+# Tuist signing
+Tuist/Signing/
+
+# Dependencies
+.dependencies/
