@@ -73,7 +73,8 @@
       "Bash(pre-commit run:*)",
       "WebFetch(domain:nektosact.com)",
       "mcp__github__list_workflow_runs",
-      "mcp__github__get_job_logs"
+      "mcp__github__get_job_logs",
+      "Bash(git push:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
