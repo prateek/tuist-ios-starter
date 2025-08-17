@@ -250,6 +250,31 @@ struct FeatureView: View {
 3. Test on different device sizes if UI-related
 4. Ensure previews work correctly
 
+### **Pre-Commit Quality Gates** 
+Every commit is automatically validated through pre-commit hooks that ensure:
+- ✅ **Code Formatting**: SwiftFormat auto-fixes style issues
+- ✅ **Code Quality**: SwiftLint enforces coding standards and TCA patterns
+- ✅ **Build Success**: Project compiles without errors
+- ✅ **Test Passing**: All tests pass before commit
+- ✅ **File Safety**: ASCII filenames, no focused tests (fdescribe/fit)
+
+**Setup** (one-time per developer):
+```bash
+make setup-hooks              # Install pre-commit hooks
+```
+
+**Daily Usage** (automatic):
+- Hooks run on every `git commit`
+- Failed hooks block commits with clear error messages
+- Most issues auto-fixed (formatting) or provide fix instructions
+
+**Troubleshooting**:
+```bash
+pre-commit run --all-files    # Test all hooks manually
+git commit --no-verify       # Emergency bypass (use sparingly)
+pre-commit uninstall         # Remove hooks if needed
+```
+
 ## 🧪 Testing Guidelines (TMA Pattern)
 
 ### **Using Testing Modules**
@@ -287,6 +312,7 @@ tuist test --no-binary-cache           # Force clean test run
 ```bash
 make setup              # Initial project setup
 make generate          # Generate Xcode project  
+make setup-hooks        # Install pre-commit hooks (one-time setup)
 make help              # See all available commands
 ```
 

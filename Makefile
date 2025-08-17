@@ -1,7 +1,7 @@
 # Makefile for iOS Claude Code Starter
 # Common development tasks and automation
 
-.PHONY: help setup install generate clean test lint format tuist-clean debug-local clean-simulators reset-network diagnose-network
+.PHONY: help setup install generate clean test lint format tuist-clean debug-local clean-simulators reset-network diagnose-network setup-hooks
 
 # Default target
 help:
@@ -42,6 +42,7 @@ help:
 	@echo ""
 	@echo "Maintenance:"
 	@echo "  tuist-clean     - Clean Tuist cache and regenerate"
+	@echo "  setup-hooks     - Install pre-commit hooks"
 
 # Setup & Build targets
 setup:
@@ -185,3 +186,16 @@ check-tools:
 	@command -v tuist >/dev/null 2>&1 || (echo "❌ Tuist not found. Run 'make setup' first." && exit 1)
 	@command -v xcodebuild >/dev/null 2>&1 || (echo "❌ Xcode not found." && exit 1)
 	@echo "✅ All required tools are available"
+
+# Pre-commit hooks setup
+setup-hooks:
+	@echo "🪝 Installing pre-commit hooks..."
+	@if command -v pre-commit >/dev/null 2>&1; then \
+		pre-commit install --hook-type pre-commit; \
+		pre-commit install --hook-type commit-msg; \
+		echo "✅ Pre-commit hooks installed successfully"; \
+		echo "Run 'pre-commit run --all-files' to test all hooks"; \
+	else \
+		echo "❌ Pre-commit not found. Install with: brew install pre-commit"; \
+		exit 1; \
+	fi

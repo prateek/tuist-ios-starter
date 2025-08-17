@@ -1,0 +1,69 @@
+# Pre-commit hooks configuration for iOS Claude Code Starter
+# Ensures code quality, formatting, and build success before commits
+
+repos:
+  - repo: local
+    hooks:
+      # Fast file checks (run first for quick feedback)
+      - id: check-filenames
+        name: Check ASCII Filenames
+        description: Ensure filenames contain only ASCII characters
+        entry: python3 -c "import sys; import unicodedata; sys.exit(any(not all(ord(char) < 128 for char in file) for file in sys.argv[1:]))"
+        language: system
+        files: .
+        
+      - id: check-focused-tests
+        name: Check for Focused Tests
+        description: Prevent commits with focused/disabled tests
+        entry: bash -c 'if grep -r --include="*.swift" -E "(fdescribe|fit|fcontext|xdescribe|xit|xcontext)" Projects/; then echo "❌ Found focused or disabled tests. Remove them before committing."; exit 1; fi'
+        language: system
+        files: \.swift$
+        pass_filenames: false
+
+      # Code formatting (auto-fixes issues)
+      - id: swiftformat
+        name: Swift Format
+        description: Format Swift code using SwiftFormat
+        entry: make format
+        language: system
+        files: \.swift$
+        pass_filenames: false
+
+      # Code quality checks
+      - id: swiftlint
+        name: Swift Lint
+        description: Lint Swift code using SwiftLint
+        entry: make lint
+        language: system
+        files: \.swift$
+        pass_filenames: false
+
+      # Build verification (ensures project compiles)
+      - id: tuist-generate
+        name: Tuist Generate
+        description: Ensure Tuist project generates successfully
+        entry: bash -c 'tuist generate --no-open'
+        language: system
+        pass_filenames: false
+        files: '(Project\.swift|Tuist\.swift|\.swift)$'
+
+      - id: build
+        name: Build Project
+        description: Ensure project builds successfully
+        entry: make build
+        language: system
+        pass_filenames: false
+        files: \.swift$
+
+      # Test execution (slowest, run last)
+      - id: test
+        name: Run Tests
+        description: Run all tests to ensure functionality
+        entry: make test
+        language: system
+        pass_filenames: false
+        files: \.swift$
+
+# Global configuration
+fail_fast: true  # Stop on first failure for faster feedback
+default_stages: [pre-commit]

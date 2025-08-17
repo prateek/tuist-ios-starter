@@ -15,8 +15,12 @@
   - Includes problem/solution patterns with clear examples
   - Critical guidance for preventing Swift closure capture errors
 
-- [ ] Pre-commit hooks (to ensure we trigger tests + lint + format + build + ...?)
-    - [ ] Update `CLAUDE.md` to ensure we specify each task should be commited after a review
+- [x] ~~Pre-commit hooks (to ensure we trigger tests + lint + format + build + ...?)~~
+  - **COMPLETED**: Implemented comprehensive pre-commit hooks using pre-commit framework
+  - Hooks validate: SwiftFormat, SwiftLint, build success, tests passing, file safety
+  - Added `make setup-hooks` command for easy team onboarding
+  - Updated CLAUDE.md with detailed setup and troubleshooting instructions
+  - Rejected Husky in favor of pre-commit framework (better for Swift/iOS ecosystem)
 
 - [ ] Instructions for setup/install of suggested MCP servers (exa + zen + context7 + xcodebuilmcp) + sample JSON of mcp config
 
