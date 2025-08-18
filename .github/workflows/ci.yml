@@ -65,15 +65,17 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-tuist-
       
+    - name: Validate CI environment
+      run: ./Scripts/validate-ci-environment.sh
+      
     - name: Install dependencies
       run: tuist install
       
-    - name: Build and test with Tuist
+    - name: Build and test with Tuist (simplified approach)
       run: |
-        # tuist build generates project implicitly and builds
-        tuist build App --no-binary-cache -- -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5'
-        # tuist test also generates implicitly if needed
-        tuist test --no-binary-cache --result-bundle-path test-results.xcresult -- -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5'
+        # Use official simple Tuist CI patterns (no explicit schemes or destinations)
+        tuist build --no-binary-cache
+        tuist test --no-binary-cache --result-bundle-path test-results.xcresult
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
