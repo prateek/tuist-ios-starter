@@ -71,9 +71,9 @@ jobs:
     - name: Build and test with Tuist
       run: |
         # tuist build generates project implicitly and builds
-        tuist build App --no-binary-cache -- -destination 'platform=iOS Simulator,name=iPhone 16'
+        tuist build App --no-binary-cache -- -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5'
         # tuist test also generates implicitly if needed
-        tuist test --device 'iPhone 16' --no-binary-cache --result-bundle-path test-results.xcresult
+        tuist test --no-binary-cache --result-bundle-path test-results.xcresult -- -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5'
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
