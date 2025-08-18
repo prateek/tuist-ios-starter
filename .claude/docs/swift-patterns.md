@@ -211,6 +211,100 @@ TabView {
 - Use `Equatable` conformance to prevent unnecessary updates
 - Consider `removeDuplicates` for expensive observations
 
+## 🚨 Lessons Learned: Critical Issues & Solutions
+
+### **Swift Concurrency & Dependency Injection**
+
+**Issue Encountered**: App crashed on launch with `EXC_BREAKPOINT (SIGTRAP)` due to Swift actor isolation violation in dependency initialization.
+
+**Root Cause**: Using `MainActor.assumeIsolated` during static property initialization of `DependencyKey.liveValue`, which executes on background queues and violates Swift's concurrency safety rules.
+
+#### **Problem Pattern (DO NOT USE)**:
+```swift
+// ❌ CRASHES: MainActor.assumeIsolated during static initialization
+extension AudioService: DependencyKey {
+    public static let liveValue: AudioService = {
+        let manager = MainActor.assumeIsolated {
+            AudioRecorderManager()  // Violates actor isolation
+        }
+        return AudioService(/* ... */)
+    }()
+}
+```
+
+**Error Symptoms**:
+- App crashes immediately on launch
+- Crash report shows `_dispatch_assert_queue_fail`
+- Error: `swift_task_isCurrentExecutorWithFlagsImpl`
+- Stack trace includes dependency resolution in ComposableArchitecture
+
+#### **Solution Pattern (SAFE)**:
+```swift
+// ✅ SAFE: Use shared singleton with proper isolation
+@MainActor
+public class AudioRecorderManager: NSObject, ObservableObject {
+    public static let shared = AudioRecorderManager()  // Safe: created on first access
+    // ... implementation
+}
+
+extension AudioService: DependencyKey {
+    public static let liveValue: AudioService = {
+        return AudioService(
+            requestPermission: {
+                await AudioRecorderManager.shared.requestPermission()
+            },
+            startRecording: { url in
+                try await MainActor.run {
+                    try AudioRecorderManager.shared.startRecording(to: url)
+                }
+            }
+            // ... other methods using MainActor.run for isolation
+        )
+    }()
+}
+```
+
+#### **Key Principles for Swift Concurrency Safety**:
+
+1. **NEVER use `MainActor.assumeIsolated` during static initialization**
+   - Static properties initialize on arbitrary background queues
+   - Use shared singletons or defer actor creation to first use
+
+2. **Use `MainActor.run` for proper isolation in async contexts**
+   - Safely execute MainActor-isolated code from any context
+   - Properly handles concurrency without assumptions
+
+3. **Prefer shared instances for actor-isolated dependencies**
+   - Create `@MainActor` singletons for UI-related services
+   - Initialize lazily on first access, not during static setup
+
+4. **Debug with targeted crash analysis**
+   - Look for `dispatch_assert_queue_fail` in crash reports
+   - Check stack traces for dependency initialization
+   - Test `tuist run App` frequently during dependency changes
+
+#### **Testing & Validation**:
+```bash
+# Always test after dependency changes
+tuist run App
+
+# If crash occurs, check:
+# 1. Dependencies that use @MainActor
+# 2. Static initialization patterns
+# 3. Actor isolation violations in crash reports
+```
+
+#### **Prevention Checklist**:
+- ✅ All `@MainActor` classes use shared singletons for dependencies
+- ✅ No `MainActor.assumeIsolated` in `DependencyKey.liveValue`
+- ✅ Use `MainActor.run` for isolated execution in async closures
+- ✅ Test app launch after any dependency changes
+- ✅ Review crash reports for actor isolation violations
+
+**Impact**: This issue caused complete app failure on launch. Proper Swift concurrency patterns are essential for stable dependency injection in modern iOS apps.
+
+**Time to Resolution**: ~15 minutes once root cause identified. Prevention through proper patterns is critical.
+
 ## 📱 Platform Guidelines
 
 - **Use Tuist default iOS targeting** for latest SwiftUI features
