@@ -47,8 +47,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+    - name: Select Xcode 16.4
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '16.4'
       
     - name: Install Tuist
       run: |
@@ -68,17 +70,35 @@ jobs:
     - name: Validate CI environment
       run: ./Scripts/validate-ci-environment.sh
       
+    - name: Setup reliable simulator
+      run: |
+        chmod +x ./Scripts/ci-pick-simulator.sh
+        ./Scripts/ci-pick-simulator.sh
+      
     - name: Install dependencies
       run: tuist install
       
-    - name: Generate project with updated deployment targets
+    - name: Generate project
       run: tuist generate --no-open
       
-    - name: Build and test with Tuist (simplified approach)
+    - name: Build with explicit destination
       run: |
-        # Use official simple Tuist CI patterns (no explicit schemes or destinations)
-        tuist build --no-binary-cache
-        tuist test --no-binary-cache --result-bundle-path test-results.xcresult
+        xcodebuild build \
+          -workspace iOSClaudeCodeStarter.xcworkspace \
+          -scheme App \
+          -sdk iphonesimulator \
+          -destination "id=$SIMULATOR_ID" \
+          -destination-timeout 180
+          
+    - name: Test with explicit destination
+      run: |
+        xcodebuild test \
+          -workspace iOSClaudeCodeStarter.xcworkspace \
+          -scheme App \
+          -sdk iphonesimulator \
+          -destination "id=$SIMULATOR_ID" \
+          -destination-timeout 180 \
+          -resultBundlePath test-results.xcresult
 
     - name: Upload test results
       uses: actions/upload-artifact@v4

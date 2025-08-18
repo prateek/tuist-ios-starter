@@ -67,7 +67,7 @@ clean:
 	@echo "🧹 Cleaning build artifacts..."
 	@rm -rf Derived
 	@rm -rf .build
-	@xcodebuild clean -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace 2>/dev/null || true
+	@xcodebuild clean -workspace iOSClaudeCodeStarter.xcworkspace -scheme App 2>/dev/null || true
 
 build: ## Build the app for iOS Simulator
 	@echo "🔨 Building app..."
@@ -75,7 +75,7 @@ build: ## Build the app for iOS Simulator
 
 build-xcode: ## Build app using xcodebuild directly
 	@echo "🔨 Building app with xcodebuild..."
-	xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' build
+	xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme App -sdk iphonesimulator -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' build
 
 # Development targets
 test:
@@ -86,11 +86,13 @@ test-xcode: ## Run tests using xcodebuild directly
 	@echo "🧪 Running tests with xcodebuild..."
 	@xcodebuild test \
 		-workspace iOSClaudeCodeStarter.xcworkspace \
-		-scheme iOSClaudeCodeStarter-Workspace \
+		-scheme App \
+		-sdk iphonesimulator \
 		-destination 'platform=iOS Simulator,name=iPhone 16' \
 		| xcpretty 2>/dev/null || xcodebuild test \
 		-workspace iOSClaudeCodeStarter.xcworkspace \
-		-scheme iOSClaudeCodeStarter-Workspace \
+		-scheme App \
+		-sdk iphonesimulator \
 		-destination 'platform=iOS Simulator,name=iPhone 16'
 
 test-features: ## Run only Features module tests
@@ -133,7 +135,7 @@ tuist-clean:
 # Network & Debugging targets
 debug-local: ## Build app with local data (no network requests)
 	@echo "🔬 Building with local data mode..."
-	DEBUG_LOCAL_DATA=1 xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' build
+	DEBUG_LOCAL_DATA=1 xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme App -sdk iphonesimulator -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' build
 
 run: ## Build and run app in iPhone 16 simulator
 	@echo "🚀 Building and running app in iPhone 16 simulator..."
@@ -144,9 +146,9 @@ run-manual: ## Manually build and run app with full control
 	@echo "1. Booting iPhone 16 simulator..."
 	@xcrun simctl boot "iPhone 16" 2>/dev/null || echo "iPhone 16 already booted"
 	@echo "2. Building app..."
-	@xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' build
+	@xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme App -sdk iphonesimulator -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' build
 	@echo "3. Getting app path and installing..."
-	@BUILD_DIR=$$(xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme iOSClaudeCodeStarter-Workspace -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' -showBuildSettings 2>/dev/null | grep "BUILT_PRODUCTS_DIR" | head -1 | sed 's/.*= //'); \
+	@BUILD_DIR=$$(xcodebuild -workspace iOSClaudeCodeStarter.xcworkspace -scheme App -sdk iphonesimulator -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16' -showBuildSettings 2>/dev/null | grep "BUILT_PRODUCTS_DIR" | head -1 | sed 's/.*= //'); \
 	APP_PATH="$$BUILD_DIR/App.app"; \
 	BUNDLE_ID=$$(defaults read "$$APP_PATH/Info" CFBundleIdentifier 2>/dev/null || echo "com.claudecode.starter.app"); \
 	echo "Installing app: $$APP_PATH"; \
