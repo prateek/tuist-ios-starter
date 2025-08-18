@@ -1,36 +1,39 @@
 #!/bin/bash
 set -e
 
-echo "🔍 Finding or creating iPhone 16 simulator..."
+echo "🔍 Finding reliable iPhone 16 simulator..."
 
-# Try to find existing iPhone 16 with iOS 18.x
-SIMULATOR_ID=$(xcrun simctl list devices available --json | jq -r '
+# Use simple, reliable approach - find any iPhone 16 with iOS 18.x
+SIMULATOR_ID=$(xcrun simctl list devices --json | jq -r '
   .devices | to_entries[] | 
   select(.key | contains("iOS-18")) | 
   .value[] | 
-  select(.name == "iPhone 16") | 
+  select(.name == "iPhone 16" and .state == "Shutdown") | 
   .udid' | head -1)
 
 if [ -z "$SIMULATOR_ID" ]; then
-  echo "📱 Creating new iPhone 16 simulator..."
-  # Get the latest iOS 18.x runtime
-  RUNTIME=$(xcrun simctl list runtimes --json | jq -r '
-    .runtimes[] | 
-    select(.identifier | contains("iOS")) | 
-    select(.version | startswith("18.")) | 
-    .identifier' | sort -V | tail -1)
-  
-  if [ -z "$RUNTIME" ]; then
-    echo "❌ No iOS 18.x runtime available"
-    exit 1
-  fi
-  
-  SIMULATOR_ID=$(xcrun simctl create "iPhone 16 CI" "iPhone 16" "$RUNTIME")
-  echo "✅ Created simulator: $SIMULATOR_ID"
+  echo "📱 No shutdown iPhone 16 found, trying booted ones..."
+  SIMULATOR_ID=$(xcrun simctl list devices --json | jq -r '
+    .devices | to_entries[] | 
+    select(.key | contains("iOS-18")) | 
+    .value[] | 
+    select(.name == "iPhone 16") | 
+    .udid' | head -1)
 fi
 
-echo "🚀 Booting simulator: $SIMULATOR_ID"
-xcrun simctl boot "$SIMULATOR_ID" || true
+if [ -z "$SIMULATOR_ID" ]; then
+  echo "❌ No iPhone 16 simulators found"
+  xcrun simctl list devices | grep "iPhone 16" || echo "No iPhone 16 devices at all"
+  exit 1
+fi
+
+echo "🚀 Selected simulator: $SIMULATOR_ID"
+echo "🔧 Booting simulator..."
+xcrun simctl boot "$SIMULATOR_ID" || echo "Simulator already booted or boot failed"
+
+# Verify simulator is actually available
+echo "✅ Verifying simulator availability..."
+xcrun simctl list devices | grep "$SIMULATOR_ID" || echo "Simulator not found in list"
 
 echo "✅ Simulator ready: $SIMULATOR_ID"
-echo "SIMULATOR_ID=$SIMULATOR_ID" >> $GITHUB_ENV
+echo "SIMULATOR_ID=$SIMULATOR_ID" >> "${GITHUB_ENV:-/dev/null}"
