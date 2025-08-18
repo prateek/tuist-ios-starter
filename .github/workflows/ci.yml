@@ -88,7 +88,9 @@ jobs:
           -scheme App \
           -sdk iphonesimulator \
           -destination "id=$SIMULATOR_ID" \
-          -destination-timeout 180
+          -destination-timeout 180 \
+          -skipPackagePluginValidation \
+          -skipMacroValidation
           
     - name: Test with explicit destination
       run: |
@@ -98,6 +100,8 @@ jobs:
           -sdk iphonesimulator \
           -destination "id=$SIMULATOR_ID" \
           -destination-timeout 180 \
+          -skipPackagePluginValidation \
+          -skipMacroValidation \
           -resultBundlePath test-results.xcresult
 
     - name: Upload test results
