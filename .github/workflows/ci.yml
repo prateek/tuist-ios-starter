@@ -70,6 +70,12 @@ jobs:
     - name: Validate CI environment
       run: ./Scripts/validate-ci-environment.sh
       
+    - name: Skip Xcode Macro Fingerprint Validation
+      run: defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+      
+    - name: Skip Xcode Package Validation
+      run: defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidation -bool YES
+      
     - name: Setup reliable simulator
       run: |
         chmod +x ./Scripts/ci-pick-simulator.sh
