@@ -15,7 +15,7 @@ public extension Target {
             destinations: .iOS,
             product: .app,
             bundleId: bundleId,
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("18.4"),
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
@@ -36,7 +36,7 @@ public extension Target {
             destinations: .iOS,
             product: .framework,
             bundleId: bundleId,
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("18.4"),
             sources: sources,
             resources: resources,
             dependencies: dependencies
@@ -56,7 +56,7 @@ public extension Target {
             destinations: .iOS,
             product: .staticLibrary,
             bundleId: bundleId,
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("18.4"),
             sources: sources,
             resources: resources,
             dependencies: dependencies
@@ -75,7 +75,7 @@ public extension Target {
             destinations: .iOS,
             product: .unitTests,
             bundleId: bundleId,
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("18.4"),
             sources: sources,
             dependencies: dependencies
         )
