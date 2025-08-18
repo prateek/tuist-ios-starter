@@ -32,6 +32,44 @@
 
 - [ ] Instructions for setup/install of suggested MCP servers (exa + zen + context7 + xcodebuilmcp) + sample JSON of mcp config
 
+## CI/CD Critical Issues
+
+- [ ] **CRITICAL: GitHub Actions CI has never worked despite extensive debugging**
+  - **Environment**: GitHub Actions macos-15, Xcode 16.4, Tuist 4.61.1
+  - **Project**: TMA architecture with ComposableArchitecture, Perception, Dependencies, CasePaths
+  - **Core Issue**: Swift Macros "Multiple commands produce" conflicts
+  
+  **Errors Encountered**:
+  - `error: Multiple commands produce '.../ComposableArchitectureMacros'`
+  - `error: Multiple commands produce '.../PerceptionMacros'` 
+  - `error: Multiple commands produce '.../DependenciesMacrosPlugin'`
+  - `error: Multiple commands produce '.../CasePathsMacros'`
+  
+  **Root Cause**: Multiple Swift Packages with macros trying to copy executables to same `$BUILT_PRODUCT_DIR`
+  
+  **Solutions Attempted (ALL FAILED)**:
+  - iOS version targeting: 17.0 → 18.0 → 18.4 → removed entirely
+  - Destination specification: UUID-based, name-based, automatic selection
+  - TCA version downgrade: 1.21.1 → 1.16.1 (matches Tuist working example)
+  - Swift Macros skip flags: `-skipPackagePluginValidation -skipMacroValidation`
+  - Xcode defaults: `IDESkipMacroFingerprintValidation`, `IDESkipPackagePluginFingerprintValidation`
+  - PackageSettings: Copied exact configuration from Tuist's working example
+  - Build tools: xcodebuild vs tuist commands
+  
+  **Key Findings**:
+  - Tuist's own working example (TCA 1.16.1) fails with same macro conflicts
+  - Issue persists even with Tuist's exact CI configuration and package settings
+  - Problem appears to be fundamental incompatibility between TCA ecosystem macros and Tuist project generation
+  - Related GitHub issues: tuist/tuist#7570, tuist/tuist#7164 (still open)
+  
+  **Status**: **UNRESOLVED** - CI has never succeeded in any configuration
+  
+  **Recommendations**:
+  - Consider alternative architecture without TCA macro dependencies
+  - File minimal reproduction case with Tuist team
+  - Investigate pure Xcode project approach vs Tuist-generated projects
+  - Wait for Tuist team to resolve Swift Macros conflicts in future releases
+
 ## Code Signing & Device Installation
 
 - [ ] **Add proper code signing configuration for device builds**
