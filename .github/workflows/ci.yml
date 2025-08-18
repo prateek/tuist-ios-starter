@@ -71,6 +71,9 @@ jobs:
     - name: Install dependencies
       run: tuist install
       
+    - name: Generate project with updated deployment targets
+      run: tuist generate --no-open
+      
     - name: Build and test with Tuist (simplified approach)
       run: |
         # Use official simple Tuist CI patterns (no explicit schemes or destinations)
