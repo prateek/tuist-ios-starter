@@ -71,9 +71,9 @@ jobs:
     - name: Build and test with Tuist
       run: |
         # tuist build generates project implicitly and builds
-        tuist build App
+        tuist build App --no-binary-cache
         # tuist test also generates implicitly if needed
-        tuist test --result-bundle-path test-results.xcresult
+        tuist test --no-binary-cache --result-bundle-path test-results.xcresult
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
