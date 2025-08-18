@@ -87,7 +87,7 @@ jobs:
           -workspace iOSClaudeCodeStarter.xcworkspace \
           -scheme App \
           -sdk iphonesimulator \
-          -destination "id=$SIMULATOR_ID" \
+          -destination 'platform=iOS Simulator,name=iPhone 16' \
           -destination-timeout 180 \
           -skipPackagePluginValidation \
           -skipMacroValidation
@@ -98,7 +98,7 @@ jobs:
           -workspace iOSClaudeCodeStarter.xcworkspace \
           -scheme App \
           -sdk iphonesimulator \
-          -destination "id=$SIMULATOR_ID" \
+          -destination 'platform=iOS Simulator,name=iPhone 16' \
           -destination-timeout 180 \
           -skipPackagePluginValidation \
           -skipMacroValidation \
