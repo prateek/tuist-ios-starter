@@ -5,8 +5,13 @@ import PackageDescription
     import ProjectDescription
 
     let packageSettings = PackageSettings(
-        productTypes: [
-            "ComposableArchitecture": .framework,
+        productTypes: [:],
+        targetSettings: [
+            "SwiftNavigation": .settings(
+                base: [
+                    "OTHER_SWIFT_FLAGS": .array([]),
+                ]
+            ),
         ]
     )
 #endif
