@@ -213,7 +213,7 @@ TabView {
 
 ## 📱 Platform Guidelines
 
-- **Target iOS 18.4.0+** for latest SwiftUI features
+- **Use Tuist default iOS targeting** for latest SwiftUI features
 - **Use SwiftUI** over UIKit unless specific needs require it
 - **Follow Apple HIG** for navigation patterns and UI design
 - **Support Dynamic Type** and accessibility features

@@ -412,7 +412,7 @@ make list-simulators  # See all iPhone simulators
 
 ## 📱 Requirements
 
-- **iOS 18.4.0+**
+- **iOS (Tuist defaults)**
 - **Xcode 15.0+**
 - **macOS Sonoma+**
 - **Swift 5.9+**
